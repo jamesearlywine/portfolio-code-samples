@@ -1,0 +1,121 @@
+<!-- begin .main-container -->
+<div class="main-container saved-main-container">
+  <div class="page-content-container saved-content-container">
+    <div class="grid-row page-top-container"
+          ng-if="dataReady"
+    >
+      <div class="grid-col-sm-2 grid-col-xs-12">
+        <p><a href="javascript:history.back()" target="_self" class="back-button"><i class="icon icon-left-circled"></i>Back</a></p>
+      </div><!-- end .grid-col -->
+      <div class="grid-col-sm-8 grid-col-xs-12">
+        <h1 class="page-title">Saved Listings</h1>
+      </div><!-- end .grid-col -->
+      <div class="grid-col-sm-2 grid-col-xs-12">
+      </div><!-- end .grid-col -->
+    </div><!-- end .grid-row -->
+    
+    <div class="grid-row listing-count-container-top"
+         ng-if="dataReady"
+    >
+      <div class="grid-col-xs-12 count-container">
+        <span ng-if="dataReady && communities.length > 0"><span ng-bind="communities.length"></span> saved listings found</span>
+        <p ng-if="dataReady && communities.length < 1" class="center">You have not saved any listings yet.</p>
+      </div><!-- end .count-container -->
+    </div><!-- end .listing-count-container-top -->
+    
+    <div class="saved-tabs-container" 
+          ng-if="dataReady && communities.length"
+          >
+      <div class="grid-row no-padding saved-tabs">
+        <div class="grid-col-xs-12 no-padding">
+          <a  class="button-tab"
+              href=""
+              target="_self"
+              ng-click="tabGoto('table')"
+              ng-class="{
+                'button-tab-selected' : tab === 'table'
+              }"
+          >
+            <i class="icon icon-table"></i> TABLE
+          </a>
+          <a  class="button-tab"
+              href=""
+              target="_self"
+              ng-click="tabGoto('map')"
+              ng-class="{
+                'button-tab-selected' : tab === 'map'
+              }"
+          >
+            <i class="icon icon-location"></i> MAP
+          </a>
+        </div><!-- end .grid-col -->
+      </div><!-- end .saved-tabs -->
+    </div><!-- end .saved-tabs-container -->
+          
+    <div class="ng-hide grid-row saved-table-view-container no-padding"
+          ng-if="dataReady"
+          ng-show="tab === 'table'"
+    >
+      <div class="grid-col-xs-12">
+        <table class="results-table" ng-if="communities.length">
+          <thead>
+            <tr>
+              <th style="font-size:1em;">Community</th>
+              <th class="desktop-col"><div>Maint.<br>Free</div></th>
+              <th class="desktop-col"><div>Indep.<br>Living</div></th>
+              <th class="desktop-col"><div>Contin.<br>Care</div></th>
+              <th class="desktop-col"><div>Assisted<br>Living</div></th>
+              <th class="desktop-col"><div>Home<br>Care</div></th>
+              <th class="desktop-col"><div>On-Site<br>Home Care</div></th>
+              <th class="desktop-col"><div>Resp.<br>Care</div></th>
+              <th class="desktop-col"><div>Mem.<br>Care</div></th>
+              <th class="desktop-col"><div>Rehab<br>Care</div></th>
+              <th class="desktop-col"><div>Nurs.<br>Care</div></th>
+              <th class="desktop-col"><div>Map<br>Region(s)</div></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr table-list-community
+                ng-repeat="community in ::communities"
+                ng-if="::community.isApproved"
+                community="::community"
+                ng-class="::{
+                  'alt-color' : $even
+                }"
+            >
+            </tr>
+          </tbody>
+        </table><!-- end .results-table -->
+      </div><!-- end .grid-col -->
+    </div><!-- end end .table-view-container -->
+  
+    <div class="ng-hide grid-row no-padding saved-map-view-container" 
+          ng-if="dataReady"
+          ng-show="tab === 'map'"
+    >
+      <div class="grid-col-xs-12">
+        <div id="saved-map-container" class="map-container">
+          <div class="translucent-container"></div>
+          <community-map
+            ng-if="dataReady"
+            communities="communities"
+            open-community="openCommunity.id"
+            include-reset-control="true"
+            reset-control-position="LEFT_BOTTOM"
+          ></community-map>
+          
+          <div class="map-results-panel">
+            <map-list-community
+              ng-repeat="community in ::communities"
+              community="::community"
+              ng-class="::{
+                'alt-color' : $even
+              }"
+            ></map-list-community>
+          </div><!-- end .map-results-panel -->
+        </div><!-- end .map-container -->
+      </div><!-- end .grid-col -->
+    </div><!-- end .saved-map-view-container -->
+  </div><!-- end .page-content-container -->
+</div><!-- end .main-container -->
+

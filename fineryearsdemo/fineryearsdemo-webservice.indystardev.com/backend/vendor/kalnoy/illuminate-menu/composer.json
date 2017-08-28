@@ -1,0 +1,35 @@
+{
+    "name": "kalnoy/illuminate-menu",
+
+    "description": "A menu builder for Laravel using Bootstrap's markup.",
+
+    "keywords": [ "laravel", "menu", "bootstrap" ],
+
+    "license": "MIT",
+
+    "authors": [
+        {
+            "name": "Alexander Kalnoy",
+            "email": "lazychaser@gmail.com"
+        }
+    ],
+
+    "require": {
+        "php": ">=5.4.0"
+    },
+
+    "require-dev": {
+        "mockery/mockery": "~0.9",
+        "illuminate/http": "4.2 - 5.2",
+        "illuminate/support": "4.2 - 5.2"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "Illuminate\\Html\\": "src/",
+            "Illuminate\\Support\\Facades\\": "facade/"
+        }
+    },
+
+    "minimum-stability": "stable"
+}

@@ -1,0 +1,211 @@
+swagger: "2.0"
+info: 
+  title: "The Finer Years Webservice Cache API"
+  version: "1.0.0"
+  description: "TODO"
+  contact: 
+    name: "IndyStarDev"
+    email: "james.earlywine@indystar.com"
+host: "fineryearsdemos3.indystardev.com"
+basePath: "/webserviceCache/"
+schemes: 
+  - "http"
+consumes: 
+  - "application/json"
+  - "application/x-www-form-urlencoded"
+produces: 
+  - "application/json"
+  - "image"
+  - "image/png"
+  - "image/jpg"
+  - "image/jpeg"
+  - "image/gif"
+  - "image/bmp"
+
+paths: 
+
+#################################
+## Communities
+#################################
+
+  /community: 
+    get:
+      tags:
+        - Communities
+      description: "Get all communities"
+      produces: 
+        - "application/json"
+      parameters:
+        -
+          name: "dummyParam"
+          description: "- replace with path parameter to single community possible -"
+          type: "string"
+          default: ""
+          required: true
+          in: "path"
+      responses: 
+        "200":
+          description: "returns an array of communities"
+          schema: 
+            type: "array"
+            items:
+              $ref: "#/definitions/Community"
+              
+
+
+
+#################################
+## Regions
+#################################
+
+  /region: 
+    get:
+      tags:
+        - Regions
+      description: "Get all regions"
+      produces: 
+        - "application/json"
+      responses: 
+        "200":
+          description: "returns an array of regions"
+          schema: 
+            type: "array"
+            items:
+              $ref: "#/definitions/Region"
+
+#################################
+## Amenities
+#################################
+
+  /amenity: 
+    get:
+      tags:
+        - Amenities
+      description: "Get all amenities"
+      produces: 
+        - "application/json"
+      responses: 
+        "200":
+          description: "returns an array of amenities"
+          schema: 
+            type: "array"
+            items:
+              $ref: "#/definitions/Amenity"
+              
+#################################
+## Community care type categories
+#################################
+
+  /communityCategory: 
+    get:
+      tags:
+        - CommunityCategories
+      description: "Get all community care type categories"
+      produces: 
+        - "application/json"
+      responses: 
+        "200":
+          description: "returns an array of community care type categories"
+          schema: 
+            type: "array"
+            items:
+              $ref: "#/definitions/CommunityCategory"
+              
+              
+
+  
+
+#################################
+## $ref erences
+#################################
+
+parameters:
+  Recaptcha: 
+    name: g-recaptcha-response
+    in: formData
+    description: "Valid recaptcha response token <button onclick='window.getRecaptcha(event)'>Get</button>"
+    required: true
+    type: string
+    
+definitions: 
+  Community: 
+    type: "object"
+    properties: 
+      id: 
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+      address1:
+        type: "string"
+      address2:
+        type: "string"
+      city:
+        type: "string"
+      state:
+        type: "string"
+      zip:
+        type: "string"
+      lat:
+        type: "string"
+      lng:
+        type: "string"
+      phone:
+        type: "string"
+      phone_ext:
+        type: "string"
+      fax:
+        type: "string"
+      fax_ext:
+        type: "string"
+      s3_image_url:
+        type: "string"
+      website:
+        type: "string"
+      email:
+        type: "string"
+      isEnhanced:
+        type: "boolean"
+      facility_manager:
+        type: "string"
+      enhanced_intro_text:
+        type: "string"
+      
+      
+  GuestUser:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+      favorite_communities:
+        type: "array"
+        items:
+          type: "string"
+  
+  CommunityCategory:
+    type: "object"
+    properties:
+      id: 
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+      
+  Region:
+    type: "object"
+    properties:
+      id: 
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+      
+  Amenity:
+    type: "object"
+    properties:
+      id: 
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+      

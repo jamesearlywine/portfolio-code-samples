@@ -1,0 +1,37 @@
+The simple demo uses a modal to prompt for recaptcha response
+    - That way no matter where a use is on the page, scrolled far-down, if they submit, a captcha is required before submit
+    - They must submit a valid captcha response to submit data via the web ui
+The simple demo uses a simple backend/process.php
+    - Assumes the valid captcha response is in $_POST['g-recaptcha-response'] variable
+    
+There are two keys needed to configure the captcha.  
+I've included working api keys for frontend and backend
+    - siteKey is stored in recaptcha/indystarRecaptcha.js (can also be overriden in html)
+    - secret_server_key is stored in recaptcha/backend/config.php
+    
+It may be that you will want different api keys for different projects
+(this may limit how frequently people are prompted for extra input)
+You can get those here (only requires google login)
+    - https://www.google.com/recaptcha/intro/index.html (click "get reCAPTCHA")
+    - You can specify a list of domains that may use these keys
+    
+For the default keys that I've included with this library, the following domains are valid:  
+    - ec2-107-20-192-20.compute-1.amazonaws.com
+    - indylb-2135524474.us-east-1.elb.amazonaws.com
+    - interactives.indystar.com
+    - indystardev.com
+
+So long as the web visitor is at a page hosted on these domains, the included recaptcha keys will work.
+
+---
+
+The fulldemo pages include some other functionality
+
+    - Insert a recaptcha into a form element
+        - can attach a callback handler, to submit data after satisfying the recaptcha
+    
+    - Implicit loading for inline form-element recaptcha, but..
+        - Isn't very modal-like, allows the user to submit the form without a valid captcha response
+        - There may be a way to listen to the captcha's events and then submit the form, but I'm not sure.
+        
+    

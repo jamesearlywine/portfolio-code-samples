@@ -1,0 +1,32 @@
+{
+  "name": "slick-lightbox",
+  "version": "0.2.7",
+  "ignore": [
+    "node_modules",
+    "gh-pages",
+    "docs",
+    "demo",
+    "src/bower_components",
+    "src/index.html"
+  ],
+  "main": [
+    "dist/slick-lightbox.js",
+    "dist/slick-lightbox.min.js",
+    "dist/slick-lightbox.css"
+  ],
+  "dependencies": {
+    "jquery": "~1",
+    "slick-carousel": "~1.4.1"
+  },
+  "homepage": "https://github.com/mreq/slick-lightbox",
+  "_release": "0.2.7",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.2.7",
+    "commit": "e721856d83bf4c8cb1418c78df5648bb2b0ce53f"
+  },
+  "_source": "https://github.com/mreq/slick-lightbox.git",
+  "_target": "^0.2.7",
+  "_originalSource": "slick-lightbox",
+  "_direct": true
+}

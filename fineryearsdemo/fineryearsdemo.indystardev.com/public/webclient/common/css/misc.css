@@ -1,0 +1,220 @@
+/* 
+  Allow angular.js to be loaded in body, hiding cloaked elements until 
+  templates compile.  The !important is important given that there may be 
+  other selectors that are more specific or come later and might alter display.  
+  (http://stackoverflow.com/questions/11249768/angularjs-ng-cloak-ng-show-elements-blink)
+ */
+ /*
+[ng\:cloak], [ng-cloak], 
+*/
+.ng-cloak 
+{
+  display: none;
+}
+
+/**
+ * Fixes slowness in hiding elements with ng-hide/ng-show
+ */
+.ng-hide,
+.ng-hide-add 
+{
+  display: none;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+
+/**
+ * Accordian animation stuff
+ */
+ 
+/* the accordion panel */
+  /* visible state */
+#communities-container .panel-body-container
+{
+  -o-transition: max-height .5s; 
+  -webkit-transition: max-height .5s; 
+  -moz-transition: max-height .5s; 
+  -ms-transition: max-height .5s; 
+  transition: max-height .5s; 
+  
+  max-height: 2000px;
+  overflow: hidden;
+}
+
+.mobile #communities-container .panel-body-container
+{
+  -o-transition: max-height .25s; 
+  -webkit-transition: max-height .25s; 
+  -moz-transition: max-height .25s; 
+  -ms-transition: max-height .25s; 
+  transition: max-height .25s; 
+  
+  max-height: 2000px;
+  overflow: hidden;
+}
+
+
+  /* hidden state */
+#communities-container .panel-body-container.ng-hide
+{
+  max-height: 0px;
+}
+
+/* the alternate ad to display when the accordion is closed
+  /* visible state */
+#communities-container .accordion-closed-ad-container
+{
+  -o-transition: max-height .35s, opacity .5s;
+  -webkit-transition: max-height .35s, opacity .5s; 
+  -moz-transition: max-height .35s, opacity .5s; 
+  -ms-transition: max-height .35s, opacity .5s;
+  transition: max-height .35s, opacity .5s;
+  
+  display: block;
+  overflow: hidden;
+  max-height: 1000px;
+  opacity: 1;
+}
+  /* hidden state */
+#communities-container .accordion-closed-ad-container.ng-hide
+{
+  max-height: 0px;
+  opacity: 0;
+}
+
+
+/* fixes scroll issue on /map switching tabs on mobile */
+.map-main-container
+{
+  min-height: 1000px;
+}
+
+@media screen and (min-width:768px)
+{
+  .map-main-container
+  {
+    min-height: initial;
+  }
+}
+
+.saved-main-container
+{
+  min-height: 800px;
+}
+
+
+/* login modal */
+.login-modal .modal-content
+{
+  -webkit-boxshadow: inherit;
+  box-shadow: none;
+  background-color: transparent;
+  border: none;
+  border-radius: inherit;
+  -webkit-box-shadow: inherit;
+  text-align: left;
+}
+
+/* remove bootstrap blue outlines on focused links */
+a:focus {
+  outline: none;
+}
+
+
+/**
+ * Login modal sliding 
+ */
+/* make login modal scrollable as needed, when viewport is less than 470px in height */
+@media screen and (max-height: 470px) {
+  .login-modal
+  {
+    overflow-y: auto;
+  }
+}
+ 
+/* basic shared properties across all visibility states */
+.login-login-modal-content-container,
+.login-register-modal-content-container
+{
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  -o-transition: opacity .3s;
+  -webkit-transition: opacity .3s; 
+  -moz-transition: opacity .3s; 
+  -ms-transition: opacity .3s;
+  transition: opacity .3s;
+}
+
+/* login show */
+.login-login-modal-content-container.ng-hide-remove
+{
+  animation: slideInLeft;
+  animation-duration: .5s;
+  opacity: 0;
+}
+.login-login-modal-content-container.ng-hide-remove-active
+{
+  opacity: 1;
+}
+/* login hide */
+.login-login-modal-content-container.ng-hide-add
+{
+  animation: slideOutLeft;
+  animation-duration: .5s; 
+  opacity: 1;
+}
+.login-login-modal-content-container.ng-hide-add-active
+{
+  opacity: 0;
+}
+
+/* register show */
+.login-register-modal-content-container.ng-hide-remove
+{
+  animation: slideInRight;
+  animation-duration: .5s; 
+  opacity: 0;
+}
+.login-register-modal-content-container.ng-hide-remove-active
+{
+  opacity: 1;
+}
+/* register hide */
+.login-register-modal-content-container.ng-hide-add
+{
+  animation: slideOutRight;
+  animation-duration: .5s; 
+  opacity: 1;
+}
+.login-register-modal-content-container.ng-hide-add-active
+{
+  opacity: 0;
+}
+
+/* fixes jumpy screen on modal open.  see app.js AppConfig.AuthService.guest.loginModalOptions.openedClass */
+.overflow-auto 
+{
+  overflow: auto;  
+}
+
+/* amenity selection animation */
+.amenity-selected.ng-enter {
+    -webkit-transition:opacity 1s, background 2s;
+    transition:opacity 1s, background 2s;
+    opacity: 0;
+    background:#FFFF00;
+}
+.amenity-selected.ng-enter-active {
+    opacity: 1;
+    background:transparent;
+}

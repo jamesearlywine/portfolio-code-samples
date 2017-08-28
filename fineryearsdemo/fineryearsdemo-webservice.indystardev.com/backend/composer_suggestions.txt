@@ -1,0 +1,3 @@
+aws/aws-sdk-php suggests installing aws/aws-php-sns-message-validator (To validate incoming SNS notifications)
+aws/aws-sdk-php suggests installing doctrine/cache (To use the DoctrineCacheAdapter)
+aws/aws-sdk-php-laravel suggests installing laravel/lumen-framework (To test the Lumen bindings)

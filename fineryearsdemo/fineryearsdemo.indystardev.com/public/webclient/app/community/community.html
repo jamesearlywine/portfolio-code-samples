@@ -1,0 +1,374 @@
+<!-- begin .main-container -->
+<div class="main-container community-main-container"
+     ng-if="community.isEnhanced"
+  >
+  <div class="page-content-container enhanced-listing-container">
+    <div class="grid-row no-padding">
+      <div class="grid-col-md-8">
+        <p class="tiny-text">Members of the editorial and news staff of IndyStar were not involved in the creation of this content.</p>
+        <p><a href="javascript:history.back()" target="_self" class="back-button"><i class="icon icon-left-circled"></i>Back</a></p>
+        <div class="grid-row contact-info">
+          <div class="grid-col-sm-6 no-padding">
+            <div class="featured-label-container ng-show" 
+                  ng-show="community.isEnhanced"
+            >
+              <span class="featured-label" >FEATURED</span>
+            </div>
+                
+            <h1 class="community-name" 
+                ng-bind="community.name"
+            ></h1>
+            <p>
+              <span ng-if="community.address1" ng-bind="community.address1"></span>
+              <span ng-if="community.address2" ng-bind="community.address2"></span>
+              <br ng-if="community.city || community.state || community.zip"><span ng-bind="community.city"></span><span ng-if="community.state">, </span>
+              <span ng-if="community.state" ng-bind="community.state"></span>
+              <span ng-if="community.zip" ng-bind="community.zip"></span>
+              <br ng-if="community.phone">
+              <span ng-if="community.phone">Phone: <span ng-bind="community.phone | telephone"></span></span>
+            </p>
+            
+            <p ng-if="community.website">
+              <span><a class="website-link" href="http://{{community.website}}" target="_blank" ng-bind="community.website"></a></span>
+            </p>
+            
+            <p ng-if="community.facility_manager || community.facility_manager_email || community.facility_manager_phone">
+              <span ng-if="community.facility_manager">Community Contact: <span ng-bind="community.facility_manager"></span></span>
+              <br ng-if="community.facility_manager_email">
+              <span ng-if="community.facility_manager_email">
+                <a class="email-link" 
+                    href="mailto:{{community.facility_manager_email}}" 
+                    target="_top" 
+                    ng-bind="community.facility_manager_email"
+                    ng-click="recordEmailClick()"
+                  ></a>
+                </span>
+              <br ng-if="community.facility_manager_phone">
+              <span ng-if="community.facility_manager_phone">Manager Phone: <span ng-bind="community.facility_manager_phone | telephone"></span></span>
+            </p>
+          </div><!-- end .grid-col -->
+          <div class="grid-col-sm-6 no-padding padding-sm">
+            <p>
+              <a  class="button button-teal button-saved-listing"
+                  ng-class="{
+                    'favorited' : community.isFavorited
+                  }"
+                  ng-click="toggleFavorited()"
+              >
+                <i class="icon icon-star"></i>
+              </a>
+            </p>
+            <div class="map-container">
+              <community-map
+                show-loading-animation="false"
+                ng-if="googleMapsLoaded && community"
+                communities="mapCommunities"
+                include-overlay="false"
+                hide-controls="[
+                  'streetview', 
+                  'terrain'
+                ]"
+                initial-zoom="12"
+                include-reset-control="true"
+                reset-control-position="LEFT_BOTTOM"
+              ></community-map>
+            </div>
+          </div><!-- end .grid-col -->
+        </div><!-- end .contact-info -->
+        
+        <p class="community-description" ng-if="community.enhanced_intro_text" ng-bind-html="community.enhanced_intro_text"></p>
+        
+        <div class="carousel-container community-carousel-container ng-hide"
+              ng-show="community.gallery.images.length > 0"
+        >
+          <div class="grid-row community-carousel no-padding">
+            <div class="grid-col-xs-12 no-padding">
+              <!-- http://vasyabigi.github.io/angular-slick/ -->
+              <!-- settings available: http://kenwheeler.github.io/slick/#settings (camelCase to dash-attribute-case) -->
+              <!-- lightbox options available: http://mreq.github.io/slick-lightbox/ -->
+              <div class="slick-gallery-container">
+                <slick
+                  class="slick-gallery community-gallery"
+                  autoplay="false"
+                  slides-to-show="1"
+                  slides-to-scroll="1"
+                  infinite="true"
+                  dots="true"
+                  speed="300"
+                  touch-move="true"
+                  prev-arrow=".left-arrow"
+                  next-arrow=".right-arrow"
+                  init-onload="true"
+                  data="communityGalleryImages"
+                  lightbox="true"
+                  lightbox-options="{
+                    caption: 'image-caption',
+                  }"
+                >
+                  <div class="slide slide-outer" ng-repeat="image in communityGalleryImages">
+                    <div class="slide-inner">
+                      <img ng-src="{{image.s3_image_url}}" 
+                            class="slide-image" 
+                            alt="photo"
+                            data-image-caption="{{image.description}}"
+                      >
+                      <p ng-show="image.description" class="slide-description" ng-bind="image.description"></p>
+                    </div>
+                  </div><!-- end .slide -->
+                </slick><!-- end .slick-gallery -->
+              
+                <div class="left-arrow" ng-show="community.gallery.images.length > 1">
+                  <div class="arrow-icon-container">
+                    <div class="left-arrow-icon"><i class="icon icon-left-circled"></i></div>
+                  </div>
+                </div>
+                <div class="right-arrow" ng-show="community.gallery.images.length > 1">
+                  <div class="arrow-icon-container">
+                    <div class="right-arrow-icon"><i class="icon icon-right-circled"></i></div>
+                  </div>
+                </div>
+              </div><!-- end .slick-gallery-container -->
+            </div><!-- end .grid-col -->
+          </div><!-- end .community-carousel -->
+        </div><!-- end .community-carousel-container -->
+        
+        <div class="grid-row features-container">
+          <div class="grid-col-sm-12">
+            <h2 class="subheader center">Amenities / Features</h2>
+          </div><!-- end .grid-col -->
+          
+          <div class="grid-col-sm-6">
+            <ul>
+              <li ng-repeat="amenity in community.amenities" 
+                  ng-if="$index < (community.amenities.length / 2)"
+                  ng-bind="amenity.name"
+              ></li>
+            </ul>
+          </div><!-- end .grid-col -->
+          <div class="grid-col-sm-6">
+            <ul>
+              <li ng-repeat="amenity in community.amenities" 
+                  ng-if="$index >= (community.amenities.length / 2)"
+                  ng-bind="amenity.name"
+              ></li>
+            </ul>
+          </div><!-- end .grid-col -->
+        </div><!-- end .features-container -->
+        
+        <div class="community-care-descriptions">
+          <div ng-repeat="categoryMembership in community.category_memberships">
+            <h2 class="subheader" ng-bind="categoryMembership.category.name"
+            ></h2>
+            <p ng-bind-html="categoryMembership.description"
+               ng-if="categoryMembership.description"
+            ></p>
+            <p ng-if="!categoryMembership.description">Please call for more information.</p>
+          </div>
+        </div><!-- end .community-care-descriptions -->
+      </div><!-- end .grid-col -->
+      <div class="grid-col-md-4">
+        
+        <div class="center ad-container"
+             ng-if="community.community_ad"
+        >
+          <a ng-if="    community.community_ad 
+                    &&  community.community_ad.click_thru 
+                    &&  community.community_ad.s3_image_url
+                    && !community.community_ad.optional_html_instead
+                   "
+              ng-click="recordAdClick()"
+              ng-href="{{'http://' + community.community_ad.click_thru}}"
+              target="_blank"
+          >
+            <img  ng-src="{{community.community_ad.s3_image_url}}" 
+                  ng-if="community.community_ad.s3_image_url"
+                  class="ad-300" 
+                  alt="ad"
+            />
+            <!-- removed, now requiring image, no image -> display nothing
+            <img src="common/img/300x250.jpg" 
+                ng-if="!community.community_ad.s3_image_url"
+                class="ad-300" 
+                alt="ad"
+            />
+            -->
+          </a>
+          
+          <span ng-if="     community.community_ad 
+                        && !community.community_ad.click_thru 
+                        &&  community.community_ad.s3_image_url
+                        && !community.community_ad.optional_html_instead
+                      "
+          >
+            <img  ng-src="{{community.community_ad.s3_image_url}}" 
+                  ng-if="community.community_ad.s3_image_url"
+                  class="ad-300" 
+                  alt="ad"
+            />
+            <!-- removed, now required image, no image -> display nothing
+            <img src="common/img/300x250.jpg" 
+                ng-if="!community.community_ad.s3_image_url"
+                class="ad-300" 
+                alt="ad"
+            />
+            -->
+          </span>
+          
+          <div class="ad-300-container">
+            <span ng-if="    community.community_ad 
+                          && community.community_ad.optional_html_instead"
+                  ng-bind-html="community.community_ad.optional_html_instead"
+            >
+            </span>
+          </div>
+          
+          <!-- if there is no ad, removed .. no ad -> display nothing
+          <img src="common/img/300x250.jpg" 
+                ng-if="!community.community_ad"
+                class="ad-300" 
+                alt="ad"
+          />
+          -->
+        </div><!-- end .ad-container -->
+        
+        <div class="inquiry-form-container">
+          <div class="grid-row form-fill">
+            <div class="grid-col-xs-12">
+              <h2 class="center">Get More Information</h2>
+              <p ng-if="community.email || community.facility_manager_email">For more information, please fill out the form. Your message will be sent directly to <span ng-bind="community.name" style="font-style:italic;"></span>.</p>
+              <p ng-if="!community.email && !community.facility_manager_email">For more information, please call <span ng-bind="community.name" style="font-style:italic;"></span> at <b><span ng-bind="community.phone | telephone"></span></b>.</p>
+              <p ng-if="!community.email && !community.facility_manager_email && community.website">Visit <a class="website-link" href="http://{{community.website}}" ng-bind="community.website"></a></span> for more details.</p>
+              <!-- form validation docs:  https://scotch.io/tutorials/angularjs-form-validation
+                                          https://docs.angularjs.org/api/ng/directive/input
+              -->
+              <!-- form validation error docs:  https://scotch.io/tutorials/angularjs-form-validation-with-ngmessages 
+                                                https://docs.angularjs.org/api/ngMessages/directive/ngMessages
+              -->
+              <form name="theForm" 
+                    novalidate
+                    ng-if="community.email || community.facility_manager_email"
+              > 
+                <div class="form-field">
+                  <label>Name <span class="required">*</span></label>
+                  <input type="text" 
+                          id="name" 
+                          name="name" 
+                          class="input-textbox" 
+                          ng-model="informationRequest.name"
+                          ng-required="true"
+                  />
+                  <div ng-messages="theForm.name.$error"
+                       ng-if="submissionAttempted || theForm.name.$touched"
+                  >
+                    <p ng-message="required" class="required">Please enter a valid name.</p>
+                  </div>
+                </div><!-- end .form-field -->
+                
+                <div class="form-field">
+                  <label>Email Address <span class="required">*</span></label>
+                  <input type="email" 
+                          id="email" 
+                          name="email" 
+                          class="input-textbox" 
+                          ng-model="informationRequest.email"
+                          ng-required="true"
+                  />
+                  <div ng-messages="theForm.name.$error"
+                       ng-if="(submissionAttempted || theForm.email.$touched)
+                            && !theForm.email.$valid
+                       "
+                  >
+                    <p class="required">Please enter a valid email address.</p>
+                  </div>
+                </div><!-- end .form-field -->
+                  
+                <div class="form-field">
+                  <label>Phone (optional)</label>
+                  <input type="text" 
+                          id="phone1" 
+                          name="phone1" 
+                          class="input-textbox areaCode" 
+                          max-length="3" 
+                          ng-model="informationRequest.phone1"
+                          ng-required="false"
+                          ng-minlength="0"
+                  />
+                  <input type="text" 
+                          id="phone2" 
+                          name="phone2" 
+                          class="input-textbox phone1" 
+                          max-length="3" 
+                          ng-model="informationRequest.phone2"
+                          ng-required="false"
+                          ng-minlength="0"
+                  />
+                  <input type="text" 
+                          id="phone3" 
+                          name="phone3" 
+                          class="input-textbox phone2" 
+                          ng-model="informationRequest.phone3"
+                          ng-required="false"
+                          ng-minlength="0"
+                  />
+                  <div ng-messages="theForm.name.$error"
+                       ng-if="( submissionAttempted || (theForm.phone1.$touched && theForm.phone2.$touched && theForm.phone3.$touched) )
+                            && !( theForm.phone1.$valid && theForm.phone2.$valid && theForm.phone3.$valid )
+                       "
+                  >
+                    <p class="required">Please enter a valid phone number.</p>
+                  </div>
+                </div><!-- end .form-field -->
+                
+                <div class="form-field">
+                  <label>Message <span class="required">*</span></label>
+                  <textarea id="message" 
+                            name="message" 
+                            class="input-textarea" 
+                            style="height:150px" 
+                            ng-model="informationRequest.message"
+                            ng-required="true"
+                  ></textarea>
+                  <div ng-messages="theForm.name.$error"
+                       ng-if="( submissionAttempted || theForm.message.$touched )
+                            && !theForm.message.$valid 
+                       "
+                  >
+                    <p class="required">Please enter a message.</p>
+                  </div>
+                </div><!-- end .form-field -->
+                
+                <div class="form-buttons">
+                  <p class="center"
+                      ng-class="{
+                        'submitting-form' : submitting,
+                      }"
+                  >
+                    <button type="button" 
+                            ng-click="submitRequest(theForm)" 
+                            class="button button-teal">
+                      <div ng-if="submitting" class="button-animated-icon">
+                        <div class="icon-spinner"><i class="icon icon-spin5"></i></div>
+                        <div class="button-label">Sending...</div>
+                      </div><!-- end .button-animated-icon -->
+                      
+                      <div ng-if="!submitting">Send Message<i class="icon icon-right-circled"></i></div>
+                    </button>
+                  </p>
+                </div><!-- end .form-buttons -->
+              </form>
+             
+              <div class="success-message"
+                   ng-if="submitComplete && submitSucceeded"
+              >Thank you! Your message has been sent.</div>
+              <div class="fail-message"
+                   ng-if="submitComplete && !submitSucceeded"
+              >Sorry, your message was not sent. Please try again.</div>
+              
+            </div><!-- end .grid-col -->
+          </div><!-- end .form-fill -->
+        </div><!-- end .inquiry-form-container -->
+      </div><!-- end .grid-col -->
+    </div><!-- end .grid-row -->
+  </div><!-- end .page-content-container -->
+</div>
+<!-- end .main-container -->

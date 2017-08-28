@@ -1,0 +1,43 @@
+<style>
+    component-loading-animation 
+    {
+        position: absolute;
+        top: 0px;
+        height: 100%;
+        width: 100%;
+        pointer-events: none;        
+    }
+    .component-loading-backdrop
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,.8);
+        z-index: 99998;
+    }
+    .component-loading-animation-message
+    {
+        position: absolute;
+        width: 100%;
+        z-index: 99999;
+        left: 0%;
+        top: 80%;
+        text-align: center;    
+        font-size: 1.5em;
+        font-weight: 600;
+        font-family: "Arial";
+        color: #FFFFFF;
+    }
+</style>
+<span class="component-loading-backdrop"
+      ng-if="showBackdrop"
+>
+    <span us-spinner="{{spinnerOptions}}"
+          spinner-key="{{componentKey}}"
+    >
+    </span>    
+    <div class="component-loading-animation-message" 
+         ng-show="showMessage"
+         ng-bind="busyMessage"
+    ></div> 
+</span>

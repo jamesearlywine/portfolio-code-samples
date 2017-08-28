@@ -1,0 +1,62 @@
+.image-group {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    margin-left: -5px;
+
+    &-item {
+        &:extend(.thumbnail);
+
+        display: inline-block;
+        margin: 0 0 @thumbnail-padding @thumbnail-padding;
+        position: relative;
+
+        > .img-wrap {
+            display: block;        
+    
+            height: 80px;
+            line-height: 80px;
+            min-width: 80px;
+            max-width: 100%;
+            
+            text-align: center;
+            text-decoration: none;
+            font-size: 0;
+
+            > img {
+                max-height: 100%;
+                max-width: 100%;
+            }
+        }
+
+        &:hover {
+            border-color: @link-color;
+        }
+
+        > .action-delete {
+            position: absolute;
+            top: 1px;
+            right: 1px;
+
+            padding: 0 3px;
+            background: rgba(0, 0, 0, 0.3);
+
+            border-radius: @border-radius-small;
+
+            color: #fff;
+
+            &:hover {
+                background: #000;
+                color: #fff;
+            }
+        }
+    }
+}
+
+.image-thumbnail {
+    display: inline-block;
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}

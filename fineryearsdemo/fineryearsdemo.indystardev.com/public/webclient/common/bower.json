@@ -1,0 +1,39 @@
+{
+  "name": "common",
+  "homepage": "https://github.com/GannettDigital/indystar-development",
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-animate": "^1.6.0",
+    "angular-bootstrap": "^2.4.0",
+    "angular-facebook": "^0.2.3",
+    "angular-google-analytics": "^1.1.9",
+    "angular-messages": "^1.6.1",
+    "angular-sanitize": "^1.6.0",
+    "angular-slick": "^0.2.1",
+    "angular-spinner": "^0.8.1",
+    "angular-touch": "^1.6.1",
+    "angular-ui-router": "^0.3.2",
+    "bootstrap": "^3.3.7",
+    "jquery": "2.2.4",
+    "ng-file-upload": "^12.2.13",
+    "ng-lodash": "^0.5.0",
+    "ng-wrap": "^0.3.1",
+    "ngmap": "^1.17.8",
+    "slick-lightbox": "^0.2.7",
+    "spin.js": "spinjs#^2.3.2",
+    "ui-router-extras": "^0.1.3",
+    "ngMeta": "^1.0.0"
+  },
+  "devDependencies": {
+    "ui-router-extras": "^0.1.3"
+  }
+}

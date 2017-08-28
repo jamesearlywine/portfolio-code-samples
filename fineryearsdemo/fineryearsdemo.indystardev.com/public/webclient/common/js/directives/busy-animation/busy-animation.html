@@ -1,0 +1,16 @@
+<!-- loading in index/bundle instead
+    <link rel="stylesheet" ng-href="{{directiveBasepath + 'busy-animation.css'}}"/> 
+-->
+<!-- busy/loading animation -->
+<span class="spinner-backdrop"
+      ng-show="BusyAnimationService.showBackdrop"
+>
+    <!-- see BusyAnimationDirective module config block for options -->
+    <span us-spinner
+          spinner-key="busy"
+    >
+    </span>    
+    <div class="spinner-message" 
+         ng-bind="BusyAnimationService.busyMessage"
+    ></div> 
+</span>

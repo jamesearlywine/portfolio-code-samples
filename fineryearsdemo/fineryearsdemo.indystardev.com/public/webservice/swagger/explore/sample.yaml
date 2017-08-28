@@ -1,0 +1,376 @@
+swagger: "2.0"
+info: 
+  version: "1.0.0"
+  title: "High School Sports Ticker API"
+  description: "Webservice for High School Sports Ticker (see also <a href='http://hssticker.indystardev.com/swagger/explore_cache/#/Sports_Ticker_Cache'>Cache</a>)"
+  contact: 
+    name: "IndyStarDev"
+    email: "james.earlywine@indystar.com"
+host: "hssticker.indystardev.com"
+basePath: "/backend/public/index.php"
+schemes: 
+  - "http"
+consumes: 
+  - "application/json"
+  - "application/x-www-form-urlencoded"
+produces: 
+  - "application/json"
+paths: 
+
+#################################
+## Sports Ticker
+#################################
+
+  /sportsticker/all: 
+    get:
+      tags:
+        - Sports Ticker
+      description: "Get the data payload for all games"
+      produces: 
+        - "application/json"
+      responses: 
+        "200":
+          description: "returns an array of games with periods / scores"
+          schema: 
+            type: "object"
+            properties:
+              sportsTicker: 
+                type: "array"
+                items:
+                  $ref: "#/definitions/SportsTicker"
+                  
+  /sportsticker/current: 
+    get:
+      tags:
+        - Sports Ticker
+      description: "Get the data payload for current games in progress"
+      produces: 
+        - "application/json"
+      responses: 
+        "200":
+          description: "returns an array of games with periods / scores"
+          schema: 
+            type: "object"
+            properties:
+              sportsTicker: 
+                type: "array"
+                items:
+                  $ref: "#/definitions/SportsTicker"
+                  
+  /sportsticker/past: 
+    get:
+      tags:
+        - Sports Ticker
+      description: "Get the data payload for past games"
+      produces: 
+        - "application/json"
+      parameters:
+        -
+          name: "daysLimit"
+          description: "limit how many days in the past"
+          type: "number"
+          required: true
+          default: "7"
+          in: "query"
+      responses: 
+        "200":
+          description: "returns an array of games with periods / scores"
+          schema: 
+            type: "object"
+            properties:
+              sportsTicker: 
+                type: "array"
+                items:
+                  $ref: "#/definitions/SportsTicker"
+                  
+  /sportsticker/currentandpast: 
+    get:
+      tags:
+        - Sports Ticker
+      description: "Get the data payload for current games in progress and past games"
+      produces: 
+        - "application/json"
+      parameters:
+        -
+          name: "daysLimit"
+          description: "limit how many days in the past"
+          type: "number"
+          required: true
+          default: "7"
+          in: "query"
+      responses: 
+        "200":
+          description: "returns an array of games with periods / scores"
+          schema: 
+            type: "object"
+            properties:
+              sportsTicker: 
+                type: "array"
+                items:
+                  $ref: "#/definitions/SportsTicker"
+                                    
+  /sportsticker/thisweek: 
+    get:
+      tags:
+        - Sports Ticker
+      description: "Get the data payload for games happening this week (mon-sun)"
+      produces: 
+        - "application/json"
+      responses: 
+        "200":
+          description: "returns an array of games with periods / scores"
+          schema: 
+            type: "object"
+            properties:
+              sportsTicker: 
+                type: "array"
+                items:
+                  $ref: "#/definitions/SportsTicker"
+                  
+  /sportsticker/upcoming: 
+    get:
+      tags:
+        - Sports Ticker
+      description: "Get the data payload for upcoming games"
+      produces: 
+        - "application/json"
+      responses: 
+        "200":
+          description: "returns an array of games with periods / scores"
+          schema: 
+            type: "object"
+            properties:
+              sportsTicker: 
+                type: "array"
+                items:
+                  $ref: "#/definitions/SportsTicker"
+
+
+#################################
+## Action Tracking
+#################################
+
+  /actionTracking: 
+    post:
+      tags:
+        - Action Tracking
+      description: "report a user action"
+      produces: 
+        - "application/json"
+      parameters:
+        -
+          name: "apiKey"
+          description: "page where the interaction took place"
+          type: "string"
+          default: "ppl4jUcUU9sfjjj1k195hzlzq"
+          required: true
+          in: "formData"
+        -
+          name: "page"
+          description: "page where the interaction took place (ad-dev, billboard-dev, etc - see backend/config/input.php[whitelists][pages])"
+          type: "string"
+          default: "ad-dev"
+          required: true
+          in: "formData"
+        -
+          name: "actionType"
+          description: "type of interaction that took place (click, etc - see backend/config/input.php[whitelists][actionTypes])"
+          type: "string"
+          default: "click"
+          required: true
+          in: "formData"
+        -
+          name: "actionDetail"
+          description: "additional info on the action that took place (indystar-link, sponsor-link, etc - see backend/config/input.php[whitelists][actionDetails])"
+          type: "string"
+          default: "indystar-link"
+          required: true
+          in: "formData"
+      responses: 
+        "200":
+          description: "returns success or error message"
+          schema: 
+            type: "object"
+            properties:
+              success: 
+                type: "boolean"
+              errors:
+                type: "array"
+
+
+
+
+#################################
+## Testing
+#################################
+
+  /sportsticker/pushApiCacheToS3: 
+    post:
+      tags:
+        - Testing
+      description: "push the sportsticker api cache to s3 bucket"
+      produces: 
+        - "application/json"
+      responses: 
+        "200":
+          description: "returns success or error message"
+          schema: 
+            type: "object"
+            properties:
+              success: 
+                type: "boolean"
+              errors:
+                type: "array"
+
+  /sportsticker/pushImagesToS3: 
+    post:
+      tags:
+        - Testing
+      description: "push the sportsticker image (team logos) s3 bucket"
+      produces: 
+        - "application/json"
+      responses: 
+        "200":
+          description: "returns success or error message"
+          schema: 
+            type: "object"
+            properties:
+              success: 
+                type: "boolean"
+              error:
+                type: "array"
+
+  /sportsticker/now: 
+    get:
+      tags:
+        - Testing
+      description: "current server time ( Carbon::now() )"
+      produces: 
+        - "application/json"
+      responses: 
+        "200":
+          description: "returns current server time ( Carbon::now() )"
+          schema: 
+            type: "object"
+            properties:
+              now: 
+                type: "string"
+                
+  /hash/{value}: 
+    get:
+      tags:
+        - Testing
+      description: "current server time ( Carbon::now() )"
+      produces: 
+        - "application/json"
+      parameters:
+        -
+          name: "value"
+          description: "hash a string (for updating hashed password in database for a user)"
+          type: "string"
+          required: true
+          in: "path"
+      responses: 
+        "200":
+          description: "returns hashed value"
+          schema: 
+            type: "object"
+            properties:
+              hashedValue: 
+                type: "string"
+
+  /uploadcsv:
+    post:
+      tags:
+        - Testing
+      description: "Test file upload"
+      produces: 
+        - "application/json"
+      parameters:
+        -
+          name: "theFile"
+          description: "file to upload"
+          type: "file"
+          required: true
+          in: "formData"
+      responses:
+        "200":
+          description: "returns the text content of uploaded file"
+          
+  /uploadTeams:
+    post:
+      tags:
+        - Testing
+      description: "Upload Teams CSV (skips any rows where 'added' == 1) \n- (disabled in routes.php, un-comment route to re-enabled)"
+      produces: 
+        - "application/json"
+      parameters:
+        -
+          name: "theFile"
+          description: "file to upload"
+          type: "file"
+          required: true
+          in: "formData"
+      responses:
+        "200":
+          description: "returns the array of teams added"
+          
+          
+#################################
+## $ref erences
+#################################
+
+parameters:
+  Recaptcha: 
+    name: g-recaptcha-response
+    in: formData
+    description: "Valid recaptcha response token <button onclick='window.getRecaptcha(event)'>Get</button>"
+    required: true
+    type: string
+    
+definitions: 
+  SportsTicker: 
+    type: "object"
+    properties: 
+      id: 
+        type: "integer"
+        format: "int64"
+      game_starts:
+        type: "string"
+        format: "date-time"
+      game_ended:
+        type: "string"
+        format: "date-time"
+      home_team_score:
+        type: "integer"
+      visiting_team_score:
+        type: "integer"
+        format: "int64"
+      notes:
+        type: "string"
+        format: "int64"
+      home_team:
+        $ref: "#/definitions/Team"
+      visiting_team:
+        $ref: "#/definitions/Team"
+      winning_team:
+        $ref: "#/definitions/Team"
+      last_period_label:
+        $ref: "#/definitions/PeriodLabel"
+      
+  Team:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      team_name:
+        type: "string"
+      team_logo_public_filename:
+        type: "string"
+ 
+  PeriodLabel:
+    type: "object"
+    properties:
+      label:
+        type: "string"

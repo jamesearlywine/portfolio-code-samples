@@ -1,0 +1,781 @@
+<!-- begin .main-container -->
+<div class="main-container">
+  <div class="page-content-container advertising-content-container">
+    <div class="grid-row">
+      <div class="grid-col-xs-12 center">
+        <p><a href="http://www.fineryears.com" target="_self"><img src="common/img/tfy-logo-teal.png" style="width:100%; max-width:480px;" alt="The Finer Years"></a></p>
+        <p>&nbsp;</p>
+      </div><!-- end .grid-col -->
+    </div><!-- end .grid-row -->
+    <h1 class="page-title">Advertise With Us</h1>
+    <br>
+    
+    <div class="grid-row advertise-form-container">
+      <!-- form validation docs:  https://scotch.io/tutorials/angularjs-form-validation
+                                  https://docs.angularjs.org/api/ng/directive/input
+      -->
+      <!-- form validation error docs:  https://scotch.io/tutorials/angularjs-form-validation-with-ngmessages 
+                                        https://docs.angularjs.org/api/ngMessages/directive/ngMessages
+      -->
+      <form name="theForm" 
+            ng-submit="submitForm(theForm.$valid)"
+            novalidate
+      >
+        <div class="grid-col-xs-12">
+          <h2 class="page-subtitle">Enhanced Listing Update Form</h2>
+          
+          <div class="grid-row advertise-description no-padding">
+            <div class="grid-col-xs-12">
+              <p><span class="required">*</span> Indicates required field </p>
+            </div><!-- end .grid-col -->
+          </div><!-- end .advertise-description -->
+          
+          <!-- COMMUNITY INFO -->
+          <div class="grid-row advertise-form">
+            <div class="grid-col-xs-12">
+              <h3>Community Information</h3>
+              
+              <div class="form-field form-field-horizontal">
+                <label>Name <span class="required">*</span></label>
+                <div class="field-container">
+                  <input type="text" 
+                          id="communityName" 
+                          name="communityName" 
+                          class="input-textbox"
+                          ng-model="formData.name"
+                          maxlength="90"
+                          required
+                  >
+                  <div ng-messages="theForm.communityName.$error"
+                       ng-if="submitted || theForm.communityName.$touched"
+                  >
+                    <p ng-message="required" class="required">Community name is required.</p>
+                    <p ng-message="minlength" class="required">Community name must be at least 7 characters long.</p>
+                  </div>
+                </div>
+              </div><!-- end .form-field -->
+              <div class="form-field form-field-horizontal">
+                <label>Address 1 <span class="required">*</span></label>
+                <div class="field-container">
+                  <input type="text" 
+                          id="address1" 
+                          name="address1" 
+                          class="input-textbox"
+                          ng-model="formData.address1"
+                          maxlength="90"
+                          required
+                  >
+                  <div ng-messages="theForm.address1.$error"
+                       ng-if="submitted || theForm.address1.$touched"
+                  >
+                    <p ng-message="required" class="required">Address 1 is required.</p>
+                  </div>
+                </div>
+              </div><!-- end .form-field -->
+              <div class="form-field form-field-horizontal">
+                <label>Address 2 </label>
+                <div class="field-container">
+                  <input type="text" 
+                          id="address2" 
+                          name="address2" 
+                          class="input-textbox"
+                          ng-model="formData.address2"
+                          maxlength="90"
+                  >
+                </div>
+              </div><!-- end .form-field -->
+              
+              <div class="form-field form-field-horizontal">
+                <label>City <span class="required">*</span></label>
+                <div class="field-container">
+                  <input type="text" 
+                          id="city" 
+                          name="city" 
+                          class="input-textbox"
+                          ng-model="formData.city"
+                          maxlength="45"
+                          required
+                  >
+                  <div ng-messages="theForm.city.$error"
+                       ng-if="submitted || theForm.city.$touched"
+                  >
+                    <p ng-message="required" class="required">City is required.</p>
+                  </div>
+                </div>
+              </div><!-- end .form-field -->
+              
+              <div class="form-field form-field-horizontal">
+                <label>State <span class="required">*</span></label>
+                <div class="field-container">
+                  <select class="input-select"
+                    ng-options="o as o for o in states"
+                    ng-model="formData.state"
+                    required
+                  >
+                  </select>
+                </div>
+              </div><!-- end .form-field -->
+              
+              <div class="form-field form-field-horizontal">
+                <label>Zip Code <span class="required">*</span></label>
+                <div class="field-container">
+                  <input type="text"
+                          onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                          id="zipCode" 
+                          name="zipCode" 
+                          class="input-textbox"
+                          style="width:auto"
+                          ng-model="formData.zip"
+                          maxlength="5"
+                          required
+                  >
+                  <div ng-messages="theForm.zipCode.$error"
+                       ng-if="submitted || theForm.zipCode.$touched"
+                  >
+                    <p ng-message="required" class="required">Zip Code is required.</p>
+                  </div>
+                </div>
+              </div><!-- end .form-field -->
+              
+              <div class="form-field form-field-horizontal">
+                <label class="field-heading">Region(s)</label>
+                <div class="field-container">  
+                  <div ng-messages="theForm.region.$error"
+                       ng-if="submitted"
+                  >
+                    <p ng-message="required" class="required">You must select at one region.</p>
+                  </div>
+                    
+                  <label class="input-checkbox"
+                          ng-repeat="region in formData.regions"
+                  >
+                    <input type="checkbox"
+                            name="region"
+                            value="region.id"
+                            ng-model="formData.regions[region.id].selected"
+                    >
+                    {{region.name}}
+                  </label>
+                </div>
+              </div><!-- end .form-field -->
+              
+              <div class="form-field form-field-horizontal">
+                <label>Phone <span class="required">*</span></label>
+                <div class="field-container">
+                  <input type="text" 
+                          id="areaCode" 
+                          name="areaCode" 
+                          class="input-textbox areaCode"
+                          ng-class="{
+                            'ng-invalid' : !phoneNumberValid
+                          }"
+                          ng-model="formData.phone_part1"
+                          ng-attr-maxlength="3"
+                          ng-change="validatePhoneNumber()"
+                          autocomplete="off"
+                          ng-minlength="3"
+                          required
+                  >
+                  <input type="text" 
+                          id="phone1" 
+                          name="phone1" 
+                          class="input-textbox phone1"
+                          ng-model="formData.phone_part2"
+                          ng-attr-maxlength="3"
+                          ng-change="validatePhoneNumber()"
+                          autocomplete="off"
+                          ng-minlength="3"
+                          required
+                  >
+                  <input type="text" 
+                          id="phone2" 
+                          name="phone2" 
+                          class="input-textbox phone2"
+                          ng-model="formData.phone_part3"
+                          ng-attr-maxlength="4"
+                          ng-change="validatePhoneNumber()"
+                          autocomplete="off"
+                          ng-minlength="4"
+                          required
+                  >
+                  
+                  <div ng-if="submitted || theForm.phone2.$touched">
+                    <p ng-if="!phoneNumberValid" class="required">A valid 10-digit phone number is required.</p>
+                  </div>
+                </div>
+              </div><!-- end .form-field -->
+              
+              <div class="form-field form-field-horizontal">
+                <label>Email </label>
+                <div class="field-container">
+                  <input type="text" 
+                          id="email" 
+                          name="email" 
+                          class="input-textbox"
+                          ng-model="formData.email"
+                          maxlength="255"
+                  >
+                  <!-- custom validation: && 1 === 0 effectively disabled this error message, as this field is no longer required -->
+                  <div ng-messages="theForm.email.$error"
+                       ng-if="(submitted || theForm.email.$touched)
+                        && 1 === 0
+                       "
+                  >
+                    <p class="required" ng-if="!formData.email">Please enter a valid email address.</p>
+                  </div>
+                </div>
+              </div><!-- end .form-field -->
+              
+              <div class="form-field form-field-horizontal">
+                <label>Website </label>
+                <div class="field-container">
+                  <input type="text" 
+                          id="website" 
+                          name="website" 
+                          class="input-textbox" 
+                          placeholder="http://"
+                          ng-model="formData.website"
+                          maxlength="255"
+                  >
+                  <div ng-messages="theForm.website.$error"
+                       ng-if="submitted || theForm.website.$touched"
+                  >
+                    <p ng-message="required" class="required">Please enter a valid website.</p>
+                  </div>
+                </div>
+              </div><!-- end .form-field -->
+              
+              <div class="form-field form-field-horizontal" id="community-image-form-element">
+                <label class="field-heading">Logo or Photo
+                  <br><span class="tiny-text">(16:9 aspect ratio is preferred)</span>
+                </label>
+                <div class="field-container">
+                  <div ng-if="submitted && !imageValid">
+                    <p class="required">You must include a community photo.</p>
+                  </div>
+                  
+                  <div class="drop-box image-upload-container" 
+                      ngf-drop 
+                      ngf-select 
+                      ng-model="formData.image" 
+                      ngf-drag-over-class="'dragover'" 
+                      ngf-multiple="false" 
+                      ngf-allow-dir="false"
+                      accept="image/*" 
+                      ngf-pattern="'image/*'"
+                      ng-class="{
+                        'image-uploaded' : !formData.image.$error && formData.image
+                      }"
+                  >
+                    <img class="upload-image-preview"
+                         alt="photo"
+                          ng-if="formData.image.s3_image_url"
+                          ng-src="{{formData.image.s3_image_url}}"
+                    />
+                    <img class="upload-image-preview"
+                         alt="photo"
+                          ng-if="!formData.image.s3_image_url"
+                          ngf-src="!formData.image.$error && formData.image"
+                    />
+                    
+                    <div ng-hide="!formData.image.$error && formData.image">
+                      <button type="button"
+                              class="button button-teal" 
+                              style="margin-bottom:5px;"
+                              >
+                          <i class="icon icon-picture-1"></i> Browse Photos
+                      </button>
+                      <p style="text-align:center; margin-bottom:100px;">or drag a photo in this box</p>
+                    </div>
+                  </div> <!-- end .drop-box .image-upload-container -->
+                  
+                  <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+                  <p class="ng-hide"
+                      ng-show="!formData.image.$error && formData.image"
+                  >
+                    <a href="" 
+                        class="button button-teal button-sm"
+                        ng-click="removePhoto();event.preventDefault();"
+                    ><i class="icon icon-cancel-circled"></i> Remove Photo
+                    </a>
+                  </p>
+                </div>
+              </div><!-- end .form-field -->
+              
+              <div class="form-field form-field-horizontal">
+                <label>Community Description </label>
+                <div class="field-container">
+                  <textarea id="communityDescription" 
+                          name="communityDescription" 
+                          class="input-textarea"
+                          ng-model="formData.enhanced_intro_text"
+                          rows="4"
+                  ></textarea>
+                  <div ng-messages="theForm.communityDescription.$error"
+                       ng-if="submitted || theForm.communityDescription.$touched"
+                  >
+                    <p ng-message="required" class="required">Community description is required.</p>
+                  </div>
+                </div>
+              </div><!-- end .form-field -->
+              
+              <div class="form-field form-field-horizontal" id="community-image-form-element">
+                <label class="field-heading">Photo Gallery
+                  <br><span class="tiny-text">(<span style="color:#F00;">10 photos max</span>; 16:9 aspect ratio is preferred)</span>
+                </label>
+                
+                <div class="field-container">
+                  <div ng-if="submitted && !imageValid">
+                    <p class="required">You must include a community photo.</p>
+                  </div>
+                  
+                  <div class="drop-box image-upload-container gallery-image-uploader" 
+                      ngf-drop 
+                      ngf-select 
+                      ng-model="galleryImagesAddBuffer" 
+                      ngf-drag-over-class="'dragover'" 
+                      ngf-multiple="true" 
+                      ngf-allow-dir="false"
+                      accept="image/*" 
+                      ngf-pattern="'image/*'"
+                      ng-class="{
+                        'image-uploaded' : !formData.galleryImagesAddBuffer.$error && formData.galleryImages.length
+                      }"
+                  >
+                    <div ng-repeat="galleryImage in formData.galleryImages track by $index"
+                          class="gallery-image-preview-container"
+                    >
+                      <div class="gallery-image-preview"
+                            ng-if="galleryImage"
+                      >
+                        <div class="gallery-image-container">
+                          <img class="gallery-image"
+                               alt="photo"
+                                ng-if="!galleryImage.s3_image_url"
+                                ngf-src="!formData.galleryImages.$error[$index] 
+                                          && galleryImage
+                                          "
+                                ng-click="$event.stopPropagation();"
+                          />
+                          <img class="gallery-image"
+                               alt="photo"
+                                ng-if="galleryImage.s3_image_url"
+                                ng-src="{{galleryImage.s3_image_url}}"
+                                ng-click="$event.stopPropagation();"
+                          />
+                          <div class="gallery-preview-remove"
+                                ng-click="removeGalleryImage($index); $event.stopPropagation();"
+                                ng-hide="galleryImage === false"
+                          >
+                            <i class="icon icon-cancel gallery-image-preview-remove"></i>
+                          </div>
+                        </div><!-- end .gallery-image-container -->
+                        
+                        <!-- gallery image caption -->
+                        <div class="form-field form-field-horizontal">
+                          <div class="field-container">
+                            <input type="text" 
+                                    id="gallery-image-caption-{{$index}}" 
+                                    name="gallery-image-caption-{{$index}}" 
+                                    class="input-textbox" 
+                                    placeholder="Caption..."
+                                    ng-model="galleryImage.description"
+                                    maxlength="255"
+                                    ng-click="$event.stopPropagation();"
+                            >
+                          </div><!-- end .field-container -->
+                        </div><!-- end .form-field -->
+                      </div><!-- end .gallery-image-preview -->
+                    </div><!-- end .gallery-image-preview-container -->
+                    <div class="gallery-add-more-container"
+                          ng-if="formData.galleryImages.length
+                            && formData.galleryImages.length < 10
+                          "
+                    >
+                      <div class="gallery-add-more">
+                        <button type="button" class="button button-teal button-add-more"><i class="icon icon-plus"></i><br>Add More</button>
+                     </div>
+                    </div>
+                    
+                    <div ng-hide="!theForm.galleryImages.$error && formData.galleryImages.length">
+                      <button type="button"
+                              class="button button-teal" 
+                              style="margin-bottom:5px;"
+                              >
+                        <i class="icon icon-picture-1"></i> Browse Photos
+                      </button>
+                      <p style="text-align:center; margin-bottom:100px;">or drag photos in this box (up to 10 images)</p>
+                    </div>
+                  </div> <!-- end .drop-box .image-upload-container -->
+                  <p ng-if="galleryImagesHistory.history.length > 1">
+                    <button type="button"
+                          class="button button-teal button-sm"
+                          ng-click="revertGalleryImages()"
+                    ><i class="icon icon-back-in-time"></i> Undo</button>
+                  </p>
+                </div>
+              </div><!-- end .form-field -->
+              
+              <div class="form-field form-field-horizontal">
+                <label class="field-heading">Amenities</label>
+                <div class="field-container">  
+                  <div ng-messages="theForm.amenities.$error"
+                       ng-if="submitted"
+                  >
+                    <p ng-message="required" class="required">You must select at one amentity.</p>
+                  </div>
+                  <script type="text/ng-template" id="customTemplate.html">
+                    <a class="dropdown-item-container">
+                        <div class="checkmark-container">
+                          <span class="checkmark" 
+                                ng-show="match.model.selected"
+                          ><i class="icon icon-ok-2"></i></span>
+                        </div>
+                        <div class="label-container"
+                             ng-class="{
+                               'unique-amenity' : match.model.unique
+                             }"
+                        >
+                          <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>
+                          <!-- <span>{{match | json}}</span> -->
+                        </div>
+                    </a>
+                  </script>
+                  <div class="input-textbox-with-button-icon">
+                    <input type="text"
+                      id="select-amenity"
+                      ng-model="selectedAmenity" 
+                      placeholder="Add amenity..." 
+                      uib-typeahead="amenity as amenity.name for amenity in amenities | filter:{name:$viewValue}" 
+                      typeahead-template-url="customTemplate.html" 
+                      class="input-textbox form-control" 
+                      typeahead-show-hint="true" 
+                      typeahead-min-length="0"
+                      typeahead-select-on-exact="true"
+                      typeahead-focus-first="false"
+                      typeahead-on-select="selectAmenity()"
+                      typeahead-select-on-blur="false"
+                      my-enter="selectAmenity()"
+                    >
+                    <button class="button button-teal"
+                            type="button"
+                            ng-click="selectAmenity()"
+                    >
+                      <i class="icon icon-plus"></i>
+                    </button>
+                  </div>
+                  <div ng-messages="theForm.amenities.$error"
+                       ng-if="submitted"
+                  >
+                    <p ng-message="required" class="required">You must select at one amentity.</p>
+                  </div>
+                  
+                  <div class="amenities-selected-container">
+                    <div class="amenity-selected"
+                          ng-repeat="amenity in formData.amenities | reverse"
+                    >
+                      <div class="amenity-name-container"><span ng-bind="amenity.name"></span></div>
+                      <span class="amenity-delete-container"
+                            ng-click="removeAmenity(amenity)"
+                      >
+                        <i class="icon icon-cancel-circled"></i>
+                      </span>
+                    </div>
+                  </div><!-- end .amentities-selected -->
+                </div><!-- end .field-container -->
+              </div><!-- end .form-field -->
+              
+              <div class="form-field form-field-horizontal" id="community-category-form-field form-field-horizontal">
+                <label class="field-heading">Living and Care Types</label>
+                <div class="field-container">
+                  <div ng-if="submitted && !categorySelected"
+                  >
+                    <p class="required">You must select at one care type.</p>
+                  </div>
+                  <label class="input-checkbox">
+                    
+                    <!-- select all categories -->
+                    <input type="checkbox" 
+                            name="care" 
+                            value="all"
+                            ng-model="selectAllCategories"
+                            ng-change="delayedValidateCategorySelected(100)"
+                            > Select All Types</label>
+                  
+                  <label class="input-checkbox"
+                          ng-repeat="category in formData.communityCategories"
+                  >
+                    <input type="checkbox"
+                            ng-attr-name="{{'care'+category.id}}"
+                            value="category.id"
+                            ng-change="delayedValidateCategorySelected(100)"
+                            ng-model="formData.communityCategories[category.id].selected"
+                    >
+                    {{category.name}}
+                    <br>
+                      <div ng-messages="theForm['careDescription'+category.id].$error"
+                            ng-if="submitted"
+                      >
+                      <p ng-message="required" class="required">You must provide a description for this selection.</p>
+                    </div>
+                    <textarea id="careDescription"
+                              ng-attr-name="{{'careDescription' + category.id}}"
+                              class="input-textarea care-description"
+                              placeholder="Add description (required)"
+                              ng-model="formData.communityCategories[category.id].description"
+                              ng-show="formData.communityCategories[category.id].selected"
+                              ng-required="formData.communityCategories[category.id].selected"
+                    ></textarea>
+                  </label>
+                </div>
+              </div><!-- end .form-field -->
+            </div><!-- end .grid-col -->
+          </div><!-- end .advertise-form -->
+          
+           <!-- COMMUNITY CONTACT INFO -->
+          <div class="grid-row advertise-form">
+            <div class="grid-col-xs-12">
+              <h3>Community Contact Information</h3>
+              
+              <div class="form-field form-field-horizontal">
+                <label>Name </label>
+                <div class="field-container">
+                  <input type="text" 
+                          id="managerName" 
+                          name="managerName" 
+                          class="input-textbox"
+                          ng-model="formData.facility_manager"
+                  >
+               
+                  <div ng-messages="theForm.managerName.$error"
+                       ng-if="submitted || theForm.managerName.$touched"
+                  >
+                    <p ng-message="required" class="required">The contact's name is required.</p>
+                  </div>
+                </div>
+              </div><!-- end .form-field -->
+              
+              <div class="form-field form-field-horizontal">
+                <label>Phone </label>
+                <div class="field-container">
+                  <input type="text" 
+                          id="managerAreaCode" 
+                          name="managerAreaCode" 
+                          class="input-textbox areaCode"
+                          ng-class="{
+                            'ng-invalid' : !phoneNumberValid
+                          }"
+                          ng-model="formData.facility_manager_phone_part1"
+                          ng-attr-maxlength="3"
+                          ng-change="managerValidatePhoneNumber()"
+                          autocomplete="off"
+                          ng-minlength="3"
+                          
+                  >
+                  <input type="text" 
+                          id="managerPhone1" 
+                          name="managerPhone1" 
+                          class="input-textbox phone1"
+                          ng-model="formData.facility_manager_phone_part2"
+                          ng-attr-maxlength="3"
+                          ng-change="managerValidatePhoneNumber()"
+                          autocomplete="off"
+                          ng-minlength="3"
+                          
+                  >
+                  <input type="text" 
+                          id="managerPhone2" 
+                          name="managerPhone2" 
+                          class="input-textbox phone2"
+                          ng-model="formData.facility_manager_phone_part3"
+                          ng-attr-maxlength="4"
+                          ng-change="managerValidatePhoneNumber()"
+                          autocomplete="off"
+                          ng-minlength="4"
+                  >
+                  
+                  <div ng-if="submitted || theForm.managerPhone2.$touched">
+                    <p ng-if="!managerPhoneNumberValid" class="required">A valid 10-digit phone number is required.</p>
+                  </div>
+                </div>
+              </div><!-- end .form-field -->
+              
+              <div class="form-field form-field-horizontal">
+                <label>Email </label>
+                <div class="field-container">
+                  <input type="email" 
+                          id="managerEmail" 
+                          name="managerEmail" 
+                          class="input-textbox"
+                          ng-model="formData.facility_manager_email"
+                  >
+                  <!-- 1 === 0 to disable this validation message -->
+                  <div ng-messages="theForm.managerEmail.$error"
+                       ng-if="(submitted || theForm.managerEmail.$touched) 
+                       && (formData.facility_manager_email === undefined || formData.facility_manager_email === null)
+                       && 1 === 0
+                       "
+                  >
+                    <p class="required">The manager's email address is required.</p>
+                  </div>
+                </div>
+              </div><!-- end .form-field -->
+            </div><!-- end .grid-col -->
+          </div><!-- end .advertise-form -->
+          
+          <!-- SUBMITTER INFO -->
+          <div class="grid-row advertise-form">
+            <div class="grid-col-xs-12">
+              <h3>Submitter Information</h3>
+              
+              <div class="form-field form-field-horizontal">
+                <label>Name <span class="required">*</span></label>
+                <div class="field-container">
+                  <input type="text" 
+                          id="submitterName" 
+                          name="submitterName" 
+                          class="input-textbox"
+                          ng-model="formData.submitter_name"
+                          required
+                  >
+                  <div ng-messages="theForm.submitterName.$error"
+                       ng-if="submitted || theForm.submitterName.$touched"
+                  >
+                    <p ng-message="required" class="required">The submitter's name is required.</p>
+                  </div>
+                </div>
+              </div><!-- end .form-field -->
+              
+              <div class="form-field form-field-horizontal">
+                <label>Phone <span class="required">*</span></label>
+                <div class="field-container">
+                  <input type="text" 
+                          id="submitterAreaCode" 
+                          name="submitterAreaCode" 
+                          class="input-textbox areaCode"
+                          ng-class="{
+                            'ng-invalid' : !phoneNumberValid
+                          }"
+                          ng-model="formData.submitter_phone_part1"
+                          ng-attr-maxlength="3"
+                          ng-change="submitterValidatePhoneNumber()"
+                          autocomplete="off"
+                          ng-minlength="3"
+                          required
+                  >
+                  <input type="text" 
+                          id="submitterPhone1" 
+                          name="submitterPhone1" 
+                          class="input-textbox phone1"
+                          ng-model="formData.submitter_phone_part2"
+                          ng-attr-maxlength="3"
+                          ng-change="submitterValidatePhoneNumber()"
+                          autocomplete="off"
+                          ng-minlength="3"
+                          required
+                  >
+                  <input type="text" 
+                          id="submitterPhone2" 
+                          name="submitterPhone2" 
+                          class="input-textbox phone2"
+                          ng-model="formData.submitter_phone_part3"
+                          ng-attr-maxlength="4"
+                          ng-change="submitterValidatePhoneNumber()"
+                          autocomplete="off"
+                          ng-minlength="4"
+                          required
+                  >
+                  
+                  <div ng-if="submitted || theForm.submitterPhone2.$touched">
+                    <p ng-if="!submitterPhoneNumberValid" class="required">A valid 10-digit phone number is required.</p>
+                  </div>
+                </div>
+              </div><!-- end .form-field -->
+              
+              <div class="form-field form-field-horizontal">
+                <label>Email <span class="required">*</span></label>
+                <div class="field-container">
+                  <input type="email" 
+                          id="submitterEmail" 
+                          name="submitterEmail" 
+                          class="input-textbox"
+                          ng-model="formData.submitter_email"
+                          required
+                  >
+                  <div ng-messages="theForm.submitterEmail.$error"
+                       ng-if="(submitted || theForm.submitterEmail.$touched) 
+                       && (formData.submitter_email === undefined || formData.submitter_email === null)"
+                  >
+                    <p class="required">The submitter's email address is required.</p>
+                  </div>
+                </div>
+              </div><!-- end .form-field -->
+            </div><!-- end .grid-col -->
+          </div><!-- end .advertise-form -->
+          
+          <p class="center">
+            <!-- Dummy Data button 
+            <a href="" 
+                class="button button-yellow" 
+                style="max-width:200px;"
+                ng-click="populateWithDummyData()"        
+            >DummyData<i class="icon icon-right-circled"></i></a>
+            -->
+            <button type="submit"
+                    class="button button-yellow" 
+                    style="max-width:200px;"
+            >Submit Update <i class="icon icon-right-circled"></i>
+            </button>
+          </p>
+          
+          <div class="grid-row">
+            <div class="grid-col-xs-12">
+              <div class="fail-message" 
+                    ng-if="sendDataErrors.length > 0
+                    && !geocodeIssue
+                    "
+                    
+              >
+                Sorry, we are experiencing some technical difficulties. Please try again later.
+                <!-- <div ng-repeat="error in sendDataErrors track by $index">{{error | json}}</div> -->
+                <!-- <div ng-if="sendDataErrorsRequest">Request: {{sendDataErrorsRequest | json}}</div> -->
+              </div>
+              <div class="fail-message" 
+                    ng-if="sendDataErrors.length > 0
+                    && geocodeIssue
+                    "
+                    
+              >
+                We are unable to locate the community address that you've entered.<br>Please try again.
+                <!-- <div ng-repeat="error in sendDataErrors track by $index">{{error | json}}</div> -->
+                <!-- <div ng-if="sendDataErrorsRequest">Request: {{sendDataErrorsRequest | json}}</div> -->
+              </div>
+            </div><!-- end .grid-col -->
+          </div><!-- end .grid-row -->
+        </div><!-- end .grid-col -->
+      </form>
+    </div><!-- end .advertise-form-container -->
+    
+    <div class="grid-row advertising-contact-container">
+      <div class="grid-col-sm-6 logo-container">
+        <a href="http://www.indystarmedia.com" target="_blank"><img src="common/img/starmedia.png" alt="StarMedia" style="width:100%; max-width:300px"></a>
+      </div><!-- end .logo-container -->
+      <div class="grid-col-sm-6 contact-container">
+        130 S. Meridian St., Indianapolis, IN 46225
+        <br>317-444-INDY
+        <p>
+          <a href="http://static.indystar.com/terms/" target="_blank">Terms of Service</a> | 
+          <a href="http://static.indystar.com/privacy/" target="_blank">Privacy</a> | 
+          <a href="http://static.indystar.com/privacy/#adchoices" target="_blank">Ad Choices</a>
+        </p>
+        <div class="social-media-container">
+          <div class="social-buttons">
+            <a href="https://www.facebook.com/IndyStarMedia" target="_blank"><i class="icon icon-facebook-squared"></i></a>
+            <a href="https://twitter.com/indystarmedia" target="_blank"><i class="icon icon-twitter"></i></a>
+          </div><!-- end .social-buttons -->
+        </div><!-- end .social-media-container -->
+      </div><!-- end contact-container -->
+    </div><!-- end .advertising-contact-container -->
+  </div><!-- end .page-content-container -->
+</div>
+<!-- end .main-container -->

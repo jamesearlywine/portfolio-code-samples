@@ -1,0 +1,64 @@
+<div class="grid-row listing-container"
+     ng-class="::{
+       'basic' : !community.isEnhanced
+     }"
+>
+  <div class="grid-col-sm-4 photo-container">
+    <a class="link" ng-href="{{::'../#/community/' + community.id + '/' + urlFriendlyCommunityName}}">
+        <img  class="photo"
+              ng-if="::community.s3_image_thumbnail_url"
+              ng-src="{{::community.s3_image_thumbnail_url}}" 
+              alt="thumbnail"
+        >
+        <img  class="photo"
+              ng-if="::!community.s3_image_thumbnail_url && community.s3_image_url"
+              ng-src="{{::community.s3_image_url}}" 
+              alt="thumbnail"
+        >
+        <img  class="photo"
+              ng-if="::!community.s3_image_thumbnail_url && !community.s3_image_url"
+              src="common/img/no-image.jpg" 
+              alt="thumbnail"
+        >
+    </a>
+    <a  ng-if="::community.isEnhanced" 
+        class="button button-teal button-view-profile" 
+        ng-href="{{::'../#/community/' + community.id + '/' + urlFriendlyCommunityName}}"
+    >View Profile</a>
+  </div><!-- end .photo-container -->
+  <div class="grid-col-sm-8 info-container">
+    <a class="favorite-button"
+      ng-class="{
+        'favorited' : community.isFavorited
+      }"
+      ng-click="toggleFavorited()"
+    ><i class="icon icon-star"></i></a>
+  
+    <div class="featured-label-container" ng-if="::community.isEnhanced">
+      <span class="featured-label">FEATURED</span>
+    </div><!-- end .featured-label-container -->
+    
+    <div class="contact-info">
+      <span ng-if="::community.name" 
+            class="community-name"
+      ><a class="link community-link" ng-href="{{::'../#/community/' + community.id + '/' + urlFriendlyCommunityName}}">{{::community.name}}</a>
+      </span>
+      <br ng-if="::community.address1"><span ng-if='::community.address1' ng-bind='::community.address1'></span>
+      <br ng-if="::community.address2"><span ng-if='::community.address2' ng-bind='::community.address2'></span>
+      <br ng-if="::community.city"><span ng-if='::community.city' ng-bind='::community.city'></span><span ng-if='::community.state'>,</span>
+      <span ng-if='::community.state' ng-bind='::community.state'></span>
+      <span ng-if='::community.zip' ng-bind='::community.zip'></span>
+      <br ng-if="::community.phone"><span ng-if='::community.phone' ng-bind='::community.phone'></span>
+      <br ng-if="::community.facility_manager_email">
+        <span ng-if='::community.facility_manager_email'>
+          <a href="mailto:{{::community.facility_manager_email}}" 
+              target="_top" 
+              class="link email-link"
+              ng-click="recordEmailClick()"
+          >{{::community.facility_manager_email}}</a>
+        </span>
+      <br ng-if="::community.website"><span ng-if="::community.website"><a href="http://{{::community.website}}" target="_blank" class="link website-link">{{::community.website}}</a></span>
+    </div><!-- end .contact-info -->
+  </div><!-- end .info-container -->
+</div><!-- end .listing-container -->
+  

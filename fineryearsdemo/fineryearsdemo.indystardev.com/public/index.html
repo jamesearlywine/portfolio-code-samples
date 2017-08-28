@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <base href="webclient/" target="_blank">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title ng-bind="ngMeta.title">The Finer Years - Retirement Living and Elder Care</title>   
+    <meta name="author" content="{{ngMeta.author}}" />
+    <meta name="description" content="{{ngMeta.description}}" />
+    <link rel="canonical" href="http://www.fineryears.com" />
+    
+    <!-- environment variables -->
+    <script src="env.js"></script>
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="common/bower_components/bootstrap/dist/css/bootstrap.min.css"> 
+    
+    <!-- normalize -->
+    <link rel="stylesheet" href="common/css/normalize.css">
+    
+    <!-- web font icons -->
+    <link rel="stylesheet" href="common/fonts/fontello/css/fontello.css">
+    
+    <!-- responsive -->
+    <link rel="stylesheet" href="common/css/responsive.css">
+    
+    <!-- custom styles -->
+    <link rel="stylesheet" href="common/css/styles.css">
+    
+    <!-- framework fixes, misc, etc -->
+    <link rel="stylesheet" href="common/css/misc.css">
+    
+    <!-- animation -->
+    <link rel="stylesheet" href="common/css/animate.css">
+
+    <!-- jquery (loading in head, for global promise to resolve after google maps loads in global space) -->
+    <script src="common/bower_components/jquery/dist/jquery.min.js"></script>
+  
+    <!-- angular -->
+    <script src="common/bower_components/angular/angular.min.js"></script>
+  
+    <!-- load google maps -->
+    <script src="common/js/_misc/load-google-maps.js"></script>
+    
+    <!-- dummy templates file -->
+    <script src="common/js/_misc/templates-empty.js"></script>
+  
+    <!-- slick, loaded in head to eliminate race condition -->
+    <script src="common/bower_components/slick-carousel/slick/slick.js"></script>
+    <script src="common/bower_components/slick-lightbox/dist/slick-lightbox.js"></script>
+
+    <!-- map styles -->
+    <link rel="stylesheet" href="common/css/map.css">
+    
+    <!-- Slick Carousel -->
+    <link rel="stylesheet" href="common/bower_components/slick-carousel/slick/slick.css">
+    <link rel="stylesheet" href="common/bower_components/slick-carousel/slick/slick-theme.css">
+    <!-- Slick Lightbox -->
+    <link rel="stylesheet" href="common/bower_components/slick-lightbox/dist/slick-lightbox.css">
+    
+  </head>
+  <body ng-class="{
+				'mobile'      : browserDetection.isMobile,
+				'desktop'     : browserDetection.isDesktop,
+				'ipad'        : browserDetection.isiPad,
+				'not-ipad'    : !browserDetection.isiPad,
+				'ie'          : browserDetection.isIE,
+				'webkit'      : browserDetection.isWebkit,
+				'android'     : browserDetection.isAndroid,
+				'not-android' : !browserDetection.isAndroid,
+				'firefox'     : browserDetection.isFirefox,
+				'chrome'      : browserDetection.isChrome,
+				'chrome-ios'  : browserDetection.isChromeIOS,
+				'iphone4'     : browserDetection.isiPhone4,
+				'iphone5'     : browserDetection.isiPhone5,
+				'ios'         : browserDetection.isIOS
+			}"
+  >
+
+    <!-- busy spinner -->
+    <busy-animation></busy-animation>
+    
+    <!-- auth alert -->
+    <auth-alert></auth-alert>
+    
+    <!-- begin .webpage -->
+    <div class="content-container-fluid webpage">
+      
+        <!-- desktop cobrand header -->
+        <!-- <iframe id="cobrand" src="http://cobrandheaderdemo.indystardev.com" class="desktop-cobrand" scrolling="no"></iframe> -->
+        <div id="cobrand" class="desktop-cobrand">
+          <div class="cobrand-header-container">
+            <div class="cobrand-header">
+              ¡THIS DEMO FOR PORTFOLIO PURPOSES ONLY!
+              - <a href="http://fineryearsdemo-webservice.indystardev.com/admincms">CMS</a>
+              - <a href="http://fineryearsdemo-webservice.indystardev.com/explore">WEBSERVICE</a>
+              - <a href="https://github.com/jamesearlywine/portfolio-demos/tree/fineryearsdemo/fineryearsdemo">GIT</a>
+              
+            </div>
+          </div>
+        </div>
+          
+        <!-- mobile cobrand header -->
+        <div class="mobile-cobrand">
+          <div class="cobrand-header-container">
+            <div class="cobrand-header">
+              ¡THIS DEMO FOR PORTFOLIO PURPOSES ONLY!
+            </div>
+          </div>
+        </div>
+		  
+        <!-- header -->
+        <site-header
+          ng-click="bodyClicked($event)"
+        ></site-header>
+        
+        <!-- ui router outlet -->
+        <ui-view 
+          ng-click="bodyClicked($event)"
+        ></ui-view>
+        
+        <!-- footer -->
+        <site-footer
+          ng-click="bodyClicked($event)"
+        ></site-footer>
+        
+    </div>
+    <!-- end .webpage -->
+
+    <!-- vendor code -->
+    <script src="common/bower_components/angular-touch/angular-touch.min.js"></script>
+    <script src="common/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="common/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="common/bower_components/angular-messages/angular-messages.min.js"></script>
+    <script src="common/bower_components/angular-google-analytics/dist/angular-google-analytics.js"></script>
+    <script src="common/bower_components/ng-wrap/ng-wrap.js"></script>
+    <script src="common/bower_components/ng-lodash/build/ng-lodash.min.js"></script>
+    <script src="common/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="common/bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="common/bower_components/spin.js/spin.min.js"></script>
+    <script src="common/bower_components/angular-spinner/angular-spinner.min.js"></script>
+    <script src="common/bower_components/ngmap/build/scripts/ng-map.min.js"></script>
+    <script src="common/bower_components/angular-slick/dist/slick.js"></script>
+    <script src="common/bower_components/angular-facebook/lib/angular-facebook.js"></script>
+    <script src="common/bower_components/ngMeta/dist/ngMeta.min.js"></script>
+    
+    <!-- misc -->
+    <script src="common/js/_misc/scriptBasepath.js"></script>
+    <script src="common/js/_misc/debounce.js"></script>
+    <script src="common/js/directives/my-enter/my-enter.js"></script>
+
+    <!-- app -->
+      <!-- services -->
+      <script src="common/js/services/OmnitureService.js"></script>
+      <script src="common/js/services/HistoryService.js"></script>
+      <script src="common/js/services/RegionsService.js"></script>
+      <script src="common/js/services/CommunitiesService.js"></script>
+      <script src="common/js/services/BrowserDetectionService.js"></script>
+      <script src="common/js/services/MarkersService.js"></script>
+      <script src="common/js/services/DummyDataService.js"></script>
+      <script src="common/js/services/AuthService.js"></script>
+      <script src="common/js/services/FavoritesService.js"></script>
+      <script src="common/js/services/SortService.js"></script>
+      <script src="common/js/services/FilterService.js"></script>
+      <script src="common/js/services/EmailService.js"></script>
+      
+      <!-- directives -->
+      <script src="common/js/directives/busy-animation/busy-animation.js"></script>
+      <link rel="stylesheet" href="common/js/directives/busy-animation/busy-animation.css"/>
+      <script src="common/js/directives/component-loading-animation/component-loading-animation.js"></script>
+      <script src="common/js/directives/auth-alert/auth-alert.js"></script>
+      <script src="common/js/directives/site-header/site-header.js"></script>
+      <script src="common/js/directives/site-footer/site-footer.js"></script>
+      <script src="common/js/directives/community-map/community-map.js"></script>
+      <script src="common/js/directives/map-info-window/map-info-window.js"></script>
+      <script src="common/js/directives/table-list-community/table-list-community.js"></script>
+      <script src="common/js/directives/map-list-community/map-list-community.js"></script>
+      <script src="common/js/directives/ng-repeat-finished/ng-repeat-finished.js"></script>
+
+      <!-- routeables -->
+      <script src="app/home.js"></script>
+      <script src="app/map/map.js"></script>
+      <script src="app/communities/communities.js"></script>
+      <script src="app/community/community.js"></script>
+      <script src="app/saved/saved.js"></script>
+      <script src="app/care/care.js"></script>
+      <script src="app/about/about.js"></script>
+
+      <!-- modals -->
+      <script src="app/modals/login/login.js"></script>
+      
+      <!-- filters -->
+      <script src="common/js/filters/telephone.js"></script>
+
+    <!-- kick it off -->
+    <script src="app.js"></script>
+    
+  </body>
+</html>

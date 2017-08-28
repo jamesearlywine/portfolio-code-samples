@@ -1,0 +1,228 @@
+<!-- begin .header-container -->
+<div class="header-container ng-hide"
+      ng-hide="hiddenOnState"
+  >
+  <div class="grid-row header">
+    <div class="grid-col-sm-4">
+      
+        <div class="desktop-logo-container">
+          <a href="../#/" target="_self"><img src="common/img/tfy-logo-teal.png" class="desktop-logo" alt="The Finer Years: IndyStar's Guide To Retirement Living and Elder Care" /></a>
+        </div>
+        <div class="mobile-logo-container">
+          <a href="../#/" target="_self"><img src="common/img/tfy-logo-white.png" class="mobile-logo" alt="The Finer Years: IndyStar's Guide To Retirement Living and Elder Care" /></a>
+        </div>
+        <div class="menu-button-container">
+          <a  id="btn-toggle-menu" 
+              class="menu-toggle-button"
+              ng-click="toggleMenu()"    
+          ><i class="icon"
+              ng-class="{
+                'icon-cancel-1' : showMenu,
+                'icon-menu'     : !showMenu
+              }"
+          ></i></a>
+        </div>
+      </div><!-- end .grid-col -->
+      <div  class="grid-col-sm-8 menu-container" 
+            ng-class="{
+              'menu-open' : showMenu
+            }"
+            ng-mouseleave="hideAllSubmenus();resetHighlightedMenuItem()"
+      >
+        <ul class="menu">
+          <li ng-mouseenter="hideAllSubmenus();highlightMenuItem('home')"
+              ng-mouseleave="resetHighlightedMenuItem()"
+          >
+            <a  ng-href="../#/" 
+                target="_self"
+                ng-click="closeMenu();updateFindSeniorLivingButtonForState('home');"
+                ng-class="{
+                  'menu-selected'   :  (highlightedMenuItem == 'home')
+                                    || (highlightedMenuItem == null && $state.current.name == 'home')
+                  ,
+                }"
+            >HOME</a>
+          </li>
+          <li ng-mouseenter="hideAllSubmenus();highlightMenuItem('about')"
+              ng-mouseleave="resetHighlightedMenuItem()"
+          >
+            <a  href="../#/about" 
+                target="_self"
+                ng-click="closeMenu();updateFindSeniorLivingButtonForState('about');"
+                ng-class="{
+                  'menu-selected'   :  (highlightedMenuItem == 'about')
+                                    || (highlightedMenuItem == null && $state.current.name == 'about')
+                  ,
+                }"
+            >ABOUT</a>
+          </li>
+          <li ng-mouseenter="hideAllSubmenus();displaySubmenu('communities');highlightMenuItem('communities')"
+              ng-mouseover="displaySubmenu('communities')"
+              ng-mouseleave="resetHighlightedMenuItem();hideAllSubmenus()"
+              >
+            <a  href="" 
+                target="_self"
+                ng-click="handleLivingAndCareClick();"
+                ng-class="{
+                  'menu-selected' : (     highlightedMenuItem == 'care'
+                                      || (highlightedMenuItem == null && $state.current.name == 'care')
+                                    )
+                                ||  (     highlightedMenuItem == 'communities'
+                                      || (highlightedMenuItem == null && $state.current.name == 'communities')
+                                    )
+                                ||  (     highlightedMenuItem == 'communitiesByType'
+                                      || (highlightedMenuItem == null && $state.current.name == 'communitiesByType')                                    
+                                    )
+                  ,                                    
+                }"   
+            >LIVING & CARE<i class="icon icon-down-dir icon-living-care"></i></a>
+            
+            <ul class="submenu ng-hide"
+                ng-show="showSubmenu.communities"
+                ng-mouseleave="hideSubmenu('communities')"
+            >
+              <li ng-mouseenter="highlightSubmenuItem(null)">
+                <a href="../#/care"
+                   ng-click="hideAllSubmenus()"
+                   ng-class="{
+                    'submenu-selected'  : highlightedSubmenuItem === 'careTypes'
+                   }"
+                >Types of Living and Care</a>
+              </li>
+              <li ng-mouseenter="highlightSubmenuItem('allCommunities')">
+                <button type="button"
+                   ng-click="hideAllSubmenus();SiteHeaderService.goToCommunities('all');"
+                   ng-class="{
+                      'submenu-selected'  : highlightedSubmenuItem === 'allCommunities'
+                    }"
+                >View All Communities</button>
+              </li>
+              <li style="font-weight:bold; font-size:0.75em; background:#DDD; margin:10px 0; padding:5px 0 5px 10px;">VIEW ALL COMMUNITIES BY TYPE:</li>
+              <li ng-mouseenter="highlightSubmenuItem('maintenanceFree')">
+                <button type="button"
+                    ng-click="hideAllSubmenus();SiteHeaderService.goToCommunities('maintenanceFree');"
+                    ng-class="{
+                      'submenu-selected'  : highlightedSubmenuItem === 'maintenanceFree'
+                    }"
+                >Limited Maintenance/Maintenance Free</button>
+              </li>
+              <li ng-mouseenter="highlightSubmenuItem('independentLiving')">
+                <button type="button" 
+                    ng-click="hideAllSubmenus();SiteHeaderService.goToCommunities('independentLiving');"
+                    ng-class="{
+                      'submenu-selected'  : highlightedSubmenuItem === 'independentLiving'
+                    }"
+                >Independent Living</button>
+              </li>
+              <li ng-mouseenter="highlightSubmenuItem('ccrc')">
+                <button type="button" 
+                    ng-click="hideAllSubmenus();SiteHeaderService.goToCommunities('ccrc');"
+                    ng-class="{
+                      'submenu-selected'  : highlightedSubmenuItem === 'ccrc'
+                    }"
+                >Continuing Care Retirement Communities</button>
+              </li>
+              <li ng-mouseenter="highlightSubmenuItem('assistedLiving')">
+                <button type="button"
+                    ng-click="hideAllSubmenus();SiteHeaderService.goToCommunities('assistedLiving');"
+                    ng-class="{
+                      'submenu-selected'  : highlightedSubmenuItem === 'assistedLiving'
+                    }"
+                >Assisted Living</button>
+              </li>
+              <li ng-mouseenter="highlightSubmenuItem('homeCare')">
+                <button type="button"
+                    ng-click="hideAllSubmenus();SiteHeaderService.goToCommunities('homeCare');"
+                    ng-class="{
+                      'submenu-selected'  : highlightedSubmenuItem === 'homeCare'
+                    }"
+                >Home Care</button>
+              </li>
+              <li ng-mouseenter="highlightSubmenuItem('onSiteHomeCare')">
+                <button type="button"
+                    ng-click="hideAllSubmenus();SiteHeaderService.goToCommunities('onSiteHomeCare');"
+                    ng-class="{
+                      'submenu-selected'  : highlightedSubmenuItem === 'onSiteHomeCare'
+                    }"
+                >On-Site Home Care</button>
+              </li>
+              <li ng-mouseenter="highlightSubmenuItem('respiteCare')">
+                <button type="button"
+                    ng-click="hideAllSubmenus();SiteHeaderService.goToCommunities('respiteCare');"
+                    ng-class="{
+                      'submenu-selected'  : highlightedSubmenuItem === 'respiteCare'
+                    }"
+                >Respite Care</button>
+              </li>
+              <li ng-mouseenter="highlightSubmenuItem('memoryCare')">
+                <button type="button"
+                    ng-click="hideAllSubmenus();SiteHeaderService.goToCommunities('memoryCare');"
+                    ng-class="{
+                      'submenu-selected'  : highlightedSubmenuItem === 'memoryCare'
+                    }"
+                >Memory Care</button>
+              </li>
+              <li ng-mouseenter="highlightSubmenuItem('rehab')">
+                <button type="button" 
+                    ng-click="hideAllSubmenus();SiteHeaderService.goToCommunities('rehab');"
+                    ng-class="{
+                      'submenu-selected'  : highlightedSubmenuItem === 'rehab'
+                    }"
+                >Rehabilitation Care</button>
+              </li>
+              <li ng-mouseenter="highlightSubmenuItem('nursingCare')">
+                <button type="button" 
+                    href="../#/communities/nursingCare"
+                    ng-click="hideAllSubmenus();SiteHeaderService.goToCommunities('nursingCare');"
+                    ng-class="{
+                      'submenu-selected'  : highlightedSubmenuItem === 'nursingCare'
+                    }"
+                >Nursing/Specialty Care</a>
+              </li>
+            </ul>
+          </li>
+          <li ng-mouseenter="hideAllSubmenus();highlightMenuItem('map')"
+              ng-mouseleave="resetHighlightedMenuItem();hideAllSubmenus();"
+          >
+            <a  href="../#/map" 
+                target="_self"
+                ng-click="closeMenu()"
+                ng-class="{
+                  'menu-selected'   :  (highlightedMenuItem == 'map')
+                                    || (highlightedMenuItem == null && $state.current.name == 'map')
+                  ,
+                  
+                }" 
+            >MAP</a>
+          </li>
+          <li ng-mouseenter="hideAllSubmenus();highlightMenuItem('saved')"
+              ng-mouseleave="resetHighlightedMenuItem()"
+          >
+            <a  href="" 
+                target="_self"
+                ng-click="closeMenu();goToSaved();"
+                ng-class="{
+                  'menu-selected'   :  (highlightedMenuItem == 'saved')
+                                    || (highlightedMenuItem == null && $state.current.name == 'saved')
+                  ,
+                }" 
+            >SAVED LISTINGS<sup><i ng-show="!AuthServiceGuest.isLoggedIn" class="icon icon-lock-filled"></i></sup></a>
+          </li>
+        </ul>
+        <div class="header-buttons-container">
+          <a href="../#/" class="ng-hide button button-find-senior-living"
+              id="find-senior-living-button"
+              ng-show="showFindSeniorLivingButton"
+              ng-hide="!showFindSeniorLivingButton"
+          >
+            <i class="icon icon-search"></i> FIND LIVING & CARE
+          </a> 
+          <a href="" 
+            class="ng-hide button button-logout"
+             ng-show="AuthServiceGuest.isLoggedIn"
+             ng-click="logout()"
+          ><i class="icon icon-logout-2"></i> LOGOUT</a>
+        </div><!-- end .header-buttons-container -->
+      </div><!-- end .grid-col -->
+  </div><!-- end .header -->
+</div><!-- end .header-container -->

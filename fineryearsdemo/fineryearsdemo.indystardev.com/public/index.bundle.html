@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <base href="webclient/" target="_blank">
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="{{ngMeta.author}}" />
+    <meta name="description" content="{{ngMeta.description}}" />
+    <link rel="canonical" href="http://www.fineryears.com" />
+    
+    <title ng-bind="ngMeta.title">The Finer Years - Retirement Living and Elder Care</title>   
+    
+    <link rel="stylesheet" href="bundle/css/bundle_head1.css"/>
+    <link rel="stylesheet" href="common/css/responsive.css">
+    <link rel="stylesheet" href="bundle/css/bundle_head2.css"/>
+    
+    <script src="env.js"></script>
+    <script src="common/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="common/js/_misc/load-google-maps.js"></script>
+    <script src="bundle/js/bundle_head.js"></script>
+    <script src="bundle/html/templates.js"></script> 
+  </head>
+  <body ng-class="{
+				'mobile'      : browserDetection.isMobile,
+				'desktop'     : browserDetection.isDesktop,
+				'ipad'        : browserDetection.isiPad,
+				'not-ipad'    : !browserDetection.isiPad,
+				'ie'          : browserDetection.isIE,
+				'webkit'      : browserDetection.isWebkit,
+				'android'     : browserDetection.isAndroid,
+				'not-android' : !browserDetection.isAndroid,
+				'firefox'     : browserDetection.isFirefox,
+				'chrome'      : browserDetection.isChrome,
+				'chrome-ios'  : browserDetection.isChromeIOS,
+				'iphone4'     : browserDetection.isiPhone4,
+				'iphone5'     : browserDetection.isiPhone5,
+				'ios'         : browserDetection.isIOS
+			}"
+  >
+
+    <!-- busy spinner -->
+    <busy-animation></busy-animation>
+    
+    <!-- auth alert -->
+    <auth-alert></auth-alert>
+    
+    <!-- begin .webpage -->
+    <div class="content-container-fluid webpage">
+        
+        <!-- desktop cobrand header -->
+        <!-- <iframe id="cobrand" src="http://cobrandheaderdemo.indystardev.com" class="desktop-cobrand" scrolling="no"></iframe> -->
+        <div id="cobrand" class="desktop-cobrand">
+          <div class="cobrand-header-container">
+            <div class="cobrand-header">
+              ¡THIS DEMO FOR PORTFOLIO PURPOSES ONLY!
+              - <a href="http://fineryearsdemo-webservice.indystardev.com/admincms">CMS</a>
+              - <a href="http://fineryearsdemo-webservice.indystardev.com/explore">WEBSERVICE</a>
+              - <a href="https://github.com/jamesearlywine/portfolio-demos/tree/fineryearsdemo/fineryearsdemo">GIT</a>
+            </div>
+          </div>
+        </div>
+          
+        <!-- mobile cobrand header -->
+        <div class="mobile-cobrand">
+          <div class="cobrand-header-container">
+            <div class="cobrand-header">
+              ¡THIS DEMO FOR PORTFOLIO PURPOSES ONLY!
+            </div>
+          </div>
+        </div>
+		  
+        <!-- header -->
+        <site-header
+          ng-click="bodyClicked($event)"
+        ></site-header>
+        
+        <!-- ui router outlet -->
+        <ui-view 
+          ng-click="bodyClicked($event)"
+        ></ui-view>
+        
+        <!-- footer -->
+        <site-footer
+          ng-click="bodyClicked($event)"
+        ></site-footer>
+    </div>
+    <!-- end .webpage -->
+    
+    <script src="bundle/js/bundle_body.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,122 @@
+<div class="modal-content-container login-login-modal-content-container"
+      ng-show="viewState === 'login'"
+>
+  <div class="panel-container">
+    <div class="panel-header-container">
+      <h2 class="panel-title">User Login</h2>
+      <a href="" 
+          class="modal-cancel"
+          ng-click="cancel()"    
+      ><i class="icon icon-cancel-circled"></i></a>
+    </div><!-- end .panel-header-container -->
+    
+    <div class="panel-body-container">
+      <div class="grid-row login-container">
+        <div class="grid-col-xs-12">
+          <p>You must be logged in to manage your saved listings.</p>
+          <div class="form-field">
+            <label>Email Address</label>
+            <input type="email" 
+                   id="emailLogin" 
+                   name="emailLogin" 
+                   class="input-textbox" 
+                   my-enter="loginEmailEnterHanlder()"
+                   ng-model="loginEmail.value"
+                   required
+                   >
+            <div ng-if="loginEmail.error" class="required" ng-bind="loginEmail.error"></div>
+          </div><!-- end .form-field -->
+          <p>
+            <a class="button button-yellow"
+                href=""
+                target="_self"
+                ng-click="attemptLogin()"
+            ><i class="icon icon-login"></i> LOGIN</a>
+          </p>
+          <p>Don't have an account? <a href="" target="_self" ng-click="slideToRegister(true)" class="link link-green">Register Your Email</a></p>
+          
+          <div class="grid-row divider-container">
+            <div class="grid-col-xs-5 no-padding">
+              <hr>
+            </div>
+            <div class="grid-col-xs-2 center no-padding">
+              OR
+            </div>
+            <div class="grid-col-xs-5 no-padding">
+              <hr>
+            </div>
+          </div><!-- end .divider-container -->
+          
+          <p class="center">
+            <button type="button" class="button button-facebook"
+                    ng-show="facebookReady"
+                    ng-click="facebookLogin()"
+            >
+              <i class="icon icon-facebook-squared"></i> Log in with Facebook
+            </button>
+          </p>
+        </div><!-- end .grid-col -->
+      </div><!-- end .login-container -->
+    </div><!-- end .panel-body-container -->
+    <div class="panel-footer-container">
+    </div><!-- end .panel-footer-container -->
+  </div><!-- end .panel-container -->
+</div><!-- end .modal-content-container -->
+
+<div class="modal-content-container login-register-modal-content-container"
+      ng-show="viewState === 'register'"
+>
+  <div class="panel-container login">
+    <div class="panel-header-container">
+      <h2 class="panel-title">Register Email Address</h2>
+      <a href="" 
+          target="_self"
+          class="modal-cancel"
+          ng-click="cancel()"    
+      ><i class="icon icon-cancel-circled"></i></a>
+    </div><!-- end .panel-header-container -->
+    
+    <div class="panel-body-container">
+      <div class="grid-row register-container">
+        <div class="grid-col-xs-12">
+          <div class="form-field">
+            <label>Email Address</label>
+            <input type="email" 
+                    id="emailRegister1" 
+                    name="emailRegister" 
+                    class="input-textbox" 
+                    ng-model="registerEmail.value1"
+                    my-enter="registerEmail1EnterHandler()"
+                    required
+                    >
+            <div ng-if="registerEmail.error1" class="required" ng-bind="registerEmail.error1"></div>
+          </div><!-- end .form-field -->
+          
+          <div class="form-field">
+            <label>Confirm Email Address</label>
+            <input type="text" 
+                    id="emailRegister2" 
+                    name="emailConfirm" 
+                    class="input-textbox" 
+                    my-enter="registerEmail2EnterHandler()"
+                    ng-model="registerEmail.value2"
+                    required
+                    >
+            <div ng-if="registerEmail.error2" class="required" ng-bind="registerEmail.error2"></div>
+          </div><!-- end .form-field -->
+          
+          <p>
+            <a  class="button button-yellow"
+                href=""
+                target="_self"
+                ng-click="attemptRegister()"
+            ><i class="icon icon-user-add"></i> REGISTER</a>
+          </p>
+          <p>Already have an account? <a href="" ng-click="slideToLogin(true)" class="link link-green">Login Now</a></p>
+        </div><!-- end .grid-col -->
+      </div><!-- end .log-container -->
+    </div><!-- end .panel-body-container -->
+    <div class="panel-footer-container">
+    </div><!-- end .panel-footer-container -->
+  </div><!-- end .panel-container -->
+</div><!-- end .modal-content-container -->

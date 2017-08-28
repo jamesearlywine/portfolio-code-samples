@@ -1,0 +1,172 @@
+/*************************
+    MAP ELEMENTS
+*************************/
+
+.community-map-container 
+{
+  width: 100%;
+}
+
+.community-map
+{
+  position: relative;
+  height: 400px;
+  background-color: #efefef;
+}
+
+.community-main-container .community-map
+{
+  height: 280px;
+}
+
+map-info-window 
+{
+  display: block;
+  overflow:hidden;
+  text-align:left;
+}
+.gm-style-iw
+{
+  text-align: center;
+}
+
+/* 
+    this is an overlay in the map-controls layer, 
+    it ensures the infowindow autopan onOpen 
+    doesn't open underneath our html overlay --jle
+*/
+.map-overlay-underlay
+{
+  display:none;
+}
+
+@media screen and (min-width:768px)
+{
+  .map-overlay-underlay
+  {
+    /*border: solid red 2px;*/
+    width: 380px;
+    height: 100%;
+    background-color: transparent;
+    display:block;
+  }
+}
+
+@media screen and (min-height:480px)
+{
+  .community-map
+  {
+    height: 450px;
+  }
+}
+
+@media screen and (min-height:640px)
+{
+  .community-map
+  {
+    height: 560px;
+  }
+}
+
+@media screen and (min-height:768px)
+{
+  .community-map
+  {
+    height: 600px;
+  }
+}
+
+@media screen and (min-height:992px)
+{
+  .community-map
+  {
+    height: 700px;
+  }
+}
+
+map 
+{
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+/**
+ * CSS for the old MarkerWithLabel maker labels
+ */
+
+.map-marker-label
+{
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  background:#038484;
+}
+.map-marker-label-sm 
+{
+  font-size: 12px;
+  font-weight: 500;
+}
+.map-marker-label-md
+{
+  font-size: 11px;
+  font-weight: 500;
+}
+.map-marker-label-lg
+{
+  font-size: 9.5px;
+  font-weight: 400;
+}
+
+.map-marker-label-elevated
+{
+  transform: translateY(-13px);
+  font-size:1.3em;
+  background:#105363;
+}
+
+.map-marker-label-elevated.map-marker-label-sm /* 1 characters in length */
+{
+  transform: translate(0px,-13px) !important;
+}
+.map-marker-label-elevated.map-marker-label-md /* 2 characters in length */
+{
+  transform: translate(-2px,-13px) !important;
+}
+.map-marker-label-elevated.map-marker-label-lg /* 3 characters in length */
+{
+  transform: translate(-4px,-13px) !important;
+}
+.marker-bubble-gmaps-close
+{
+  display:none;
+}
+
+
+.map-main-container .community-map-container component-loading-animation 
+{
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+}
+.map-main-container .community-map-container .component-loading-backdrop
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.8);
+    z-index: 99998;
+}
+.map-main-container .community-map-container .component-loading-animation-message
+{
+    position: absolute;
+    width: 100%;
+    z-index: 99999;
+    left: 0%;
+    top: 70%;
+    text-align: center;    
+    font-size: 1.5em;
+    font-weight: 600;
+    font-family: "Arial";
+    color: #FFFFFF;
+}

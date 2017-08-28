@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <base href="../webclient/" target="_blank">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The Finer Years: Advertise With Us</title>
+    
+    <!-- environment variables -->
+    <script src="env.js"></script>
+    
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="common/bower_components/bootstrap/dist/css/bootstrap.min.css"> 
+    
+    <!-- normalize -->
+    <link rel="stylesheet" href="common/css/normalize.css">
+    
+    <!-- web font icons -->
+    <link rel="stylesheet" href="common/fonts/fontello/css/fontello.css">
+    
+    <!-- responsive -->
+    <link rel="stylesheet" href="common/css/responsive.css">
+    
+    <!-- custom styles -->
+    <link rel="stylesheet" href="common/css/styles.css">
+    
+    <!-- framework fixes, misc, etc -->
+    <link rel="stylesheet" href="common/css/misc.css">
+    
+    <!-- jle css space -->
+    <link rel="stylesheet" href="common/css/jle.css">
+    
+    <!-- jquery (loading in head, for global promise to resolve after google maps loads in global space) -->
+    <script src="common/bower_components/jquery/dist/jquery.min.js"></script>
+    
+    <!-- angular -->
+    <script src="common/bower_components/angular/angular.min.js"></script>
+    
+    <!-- dummy templates file -->
+    <script src="common/js/_misc/templates-empty.js"></script>
+
+  </head>
+  <body ng-app="app"
+  			ng-class="{
+				'mobile'      : browserDetection.isMobile,
+				'desktop'     : browserDetection.isDesktop,
+				'ipad'        : browserDetection.isiPad,
+				'not-ipad'    : !browserDetection.isiPad,
+				'ie'          : browserDetection.isIE,
+				'webkit'      : browserDetection.isWebkit,
+				'android'     : browserDetection.isAndroid,
+				'not-android' : !browserDetection.isAndroid,
+				'firefox'     : browserDetection.isFirefox,
+				'chrome'      : browserDetection.isChrome,
+				'chrome-ios'  : browserDetection.isChromeIOS,
+				'iphone4'     : browserDetection.isiPhone4,
+				'iphone5'     : browserDetection.isiPhone5,
+				'ios'         : browserDetection.isIOS
+			}"
+  >
+    
+    <!-- busy spinner -->
+    <busy-animation></busy-animation>
+    
+    <!-- begin .webpage -->
+    <div class="content-container-fluid webpage">
+        <!-- desktop cobrand header -->
+        <iframe id="cobrand" src="http://www.indystar.com/services/cobrand/header" class="desktop-cobrand" scrolling="no"></iframe>
+          
+        <!-- mobile cobrand header -->
+        <div class="mobile-cobrand">
+        	<div class="cobrand-logo">
+        		<a href="http://www.indystar.com" target="_self"><img src="http://interactives.indystar.com/styleguide/images/site-nav-logo.png" alt="IndyStar" /></a>
+        	</div>
+        </div>
+        
+        
+        <!-- ui router outlet -->
+        <ui-view></ui-view>
+        
+        
+    </div>
+    <!-- end .webpage -->
+
+    <!-- vendor code -->
+    <script src="common/bower_components/angular-messages/angular-messages.min.js"></script>
+    <script src="common/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <!-- <script src="common/bower_components/ui-router-extras/release/ct-ui-router-extras.min.js"></script> -->
+    <script src="common/bower_components/ng-wrap/ng-wrap.js"></script>
+    <script src="common/bower_components/ng-lodash/build/ng-lodash.min.js"></script>
+    <script src="common/bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="common/bower_components/angular-touch/angular-touch.min.js"></script>
+    <script src="common/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="common/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="common/bower_components/spin.js/spin.min.js"></script>
+    <script src="common/bower_components/angular-spinner/angular-spinner.min.js"></script>
+    
+    <!-- misc -->
+    <script src="common/js/_misc/scriptBasepath.js"></script>
+    <script src="common/js/directives/my-enter/my-enter.js"></script>
+    
+    <!-- app -->
+      <!-- directives -->
+      <script src="common/js/directives/busy-animation/busy-animation.js"></script>
+      <script src="common/js/directives/my-enter/my-enter.js"></script>
+      <script src="common/bower_components/ng-file-upload/ng-file-upload-all.min.js"></script>
+      
+      <!-- services -->
+      <script src="common/js/services/AdvertiseService.js"></script>  
+      <script src="common/js/services/OmnitureService.js"></script>  
+      <script src="common/js/services/BrowserDetectionService.js"></script>
+      <script src="common/js/services/RegionsService.js"></script>
+      <script src="common/js/services/CommunityCategoriesService.js"></script>
+      <script src="common/js/services/DummyDataService.js"></script>
+      <script src="common/js/services/SortService.js"></script>
+      <script src="common/js/services/CommunitiesService.js"></script>
+      <script src="common/js/services/AmenitiesService.js"></script>
+      <script src="common/js/services/FavoritesService.js"></script>
+      <script src="common/js/services/FilterService.js"></script>
+      
+      <!-- routables -->
+      <script src="../advertise/app/signup/signup.js"></script>
+      <script src="../advertise/app/enhanced/enhanced.js"></script>
+      <script src="../advertise/app/confirmation/confirmation.js"></script>
+      <script src="../advertise/app/enhanced-update-confirmation/enhanced-update-confirmation.js"></script>
+
+      <!-- filters -->
+      <script src="common/js/filters/reverse.js"></script>
+
+
+    <!-- kick it off -->
+    <script src="../advertise/app.js"></script>
+    
+  </body>
+</html>

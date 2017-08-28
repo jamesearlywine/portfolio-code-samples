@@ -1,0 +1,35 @@
+<div class="community-map-container">
+  <div  id="community-map"
+        class="community-map"
+  >
+    <map  id="{{mapId}}"
+          default-style="false"
+          center="{{initialCenter}}"
+          zoom="{{_initialZoom}}"
+          disable-default-u-i="true"
+    ></map>
+    <component-loading-animation
+      ng-if="showLoadingAnimation"
+      busy-message="busyMessage"
+      component-key="componentKey"
+      spinner-options="{{spinnerOptions}}"
+      spinner-options-defaults="{
+        lines     :13,
+        length    :28,
+        width     :14,
+        radius    :42,
+        scale     :1.00,
+        corners   :1.0,
+        opacity   :0.25,
+        rotate    :0,
+        direction :1,
+        speed     :1.0,
+        trail     :60,
+        color     :'white',
+        className :'component-loading-spinner'
+      }"
+      stop-animation-delay="500"
+      show-backdrop-initial-state="true"
+    ></component-loading-animation>
+  </div>
+</div>

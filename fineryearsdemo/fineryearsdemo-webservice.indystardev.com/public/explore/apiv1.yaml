@@ -1,0 +1,734 @@
+swagger: "2.0"
+info: 
+  title: "The Finer Years Webservice API"
+  version: "1.0.0"
+  description: "Webservice for The Finer Years App (see also <a href='http://fineryearsdemo-webservice.indystardev.com/explore_cache/'>Cache</a>)"
+  contact: 
+    name: "IndyStarDev"
+    email: "james.earlywine@indystar.com"
+host: "fineryearsdemo-webservice.indystardev.com"
+basePath: "/index.php"
+schemes: 
+  - "http"
+consumes: 
+  - "application/json"
+  - "application/x-www-form-urlencoded"
+produces: 
+  - "application/json"
+paths: 
+
+#################################
+## Communities
+#################################
+
+  /community: 
+    get:
+      tags:
+        - Communities
+      description: "Get all communities"
+      produces: 
+        - "application/json"
+      parameters:
+        -
+          name: "apiKey"
+          description: "apiKey"
+          type: "string"
+          default: "ppl4jUcUU9sfjjj1k195hzlzq"
+          required: true
+          in: "query"
+      responses: 
+        "200":
+          description: "returns an array of communities"
+          schema: 
+            type: "array"
+            items:
+              $ref: "#/definitions/Community"
+              
+  /communityByEnhancedUpdateApiKey: 
+    get:
+      tags:
+        - Communities
+      description: "Get all communities"
+      produces: 
+        - "application/json"
+      parameters:
+        -
+          name: "apiKey"
+          description: "apiKey"
+          type: "string"
+          default: "ppl4jUcUU9sfjjj1k195hzlzq"
+          required: true
+          in: "query"
+        -
+          name: "enhanced_update_api_key"
+          description: "Enhanced update api key"
+          type: "string"
+          default: ""
+          required: true
+          in: "query"
+          
+      responses: 
+        "200":
+          description: "returns the corresponding community"
+          schema: 
+            $ref: "#/definitions/Community"
+              
+  /communitySubmission: 
+    post:
+      tags:
+        - Communities
+      description: "Get all communities"
+      produces: 
+        - "application/json"
+      parameters:
+        -
+          name: "apiKey"
+          description: "apiKey"
+          type: "string"
+          default: "ppl4jUcUU9sfjjj1k195hzlzq"
+          required: true
+          in: "query"
+        -
+          name: "name"
+          description: "Community name"
+          type: "string"
+          required: true
+          in: "formData"
+        -
+          name: "address1"
+          description: "Address line 1"
+          type: "string"
+          required: true
+          in: "formData"
+        -
+          name: "address2"
+          description: "Address line 2"
+          type: "string"
+          required: false
+          in: "formData"
+        -
+          name: "city"
+          description: "City"
+          type: "string"
+          required: true
+          in: "formData"
+        -
+          name: "state"
+          description: "State"
+          default: "Indiana"
+          type: "string"
+          required: true
+          in: "formData"
+        -
+          name: "zip"
+          description: "Zipcode"
+          type: "string"
+          required: true
+          in: "formData"
+        -
+          name: "phone"
+          description: "Phone number (10 digits, no punctuation)"
+          type: "string"
+          required: true
+          in: "formData"
+        -
+          name: "email"
+          description: "Email address"
+          type: "string"
+          required: false
+          in: "formData"
+        -
+          name: "website"
+          description: "Website address"
+          type: "string"
+          required: false
+          in: "formData"
+        -
+          name: "regions"
+          description: "Comma-separated list of region IDs"
+          type: "string"
+          required: false
+          in: "formData"
+        -
+          name: "communityCategories"
+          description: "Comma-separated list of category IDs (care types)"
+          type: "string"
+          required: false
+          in: "formData"
+        -
+          name: "image"
+          description: "Community image"
+          type: "file"
+          required: false
+          in: "formData"
+        -
+          name: "facility_manager"
+          description: "Facility manager name (first and last)"
+          type: "string"
+          required: false
+          in: "formData"
+        -
+          name: "facility_manager_phone"
+          description: "Facility manager phone"
+          type: "string"
+          required: false
+          in: "formData"
+        -
+          name: "facility_manager_email"
+          description: "Facility manager email"
+          type: "string"
+          required: false
+          in: "formData"
+        -
+          name: "submitter_name"
+          description: "Submitter name (first and last)"
+          type: "string"
+          required: true
+          in: "formData"
+        -
+          name: "submitter_phone"
+          description: "Submitter phone"
+          type: "string"
+          required: true
+          in: "formData"
+        -
+          name: "submitter_email"
+          description: "Submitter email"
+          type: "string"
+          required: true
+          in: "formData"
+
+        
+
+      responses: 
+        "200":
+          description: "returns submitted community (will document parameters later -jle)"
+          schema: 
+            type: "object"
+            properties:
+              newCommunity:
+                $ref: "#/definitions/Community"  
+              errors:
+                type: "array"
+              validationErrors:
+                type: "array"
+                
+  /communityCitiesAndZips: 
+    get:
+      tags:
+        - Communities
+      description: "Get cities and zipcodes for all communities"
+      produces: 
+        - "application/json"
+      parameters:
+        -
+          name: "apiKey"
+          description: "apiKey"
+          type: "string"
+          default: "ppl4jUcUU9sfjjj1k195hzlzq"
+          required: true
+          in: "query"
+      responses: 
+        "200":
+          description: "returns an array of cities and zipcodes for all communities"
+          schema: 
+            type: "object"
+            properties:
+              cities:
+                type: "array"              
+              zips:
+                type: "array"              
+
+#################################
+## Regions
+#################################
+
+  /region: 
+    get:
+      tags:
+        - Regions
+      description: "Get all regions"
+      produces: 
+        - "application/json"
+      responses: 
+        "200":
+          description: "returns an array of regions"
+          schema: 
+            type: "array"
+            items:
+              $ref: "#/definitions/Region"
+
+#################################
+## Amenities
+#################################
+
+  /amenity: 
+    get:
+      tags:
+        - Amenities
+      description: "Get all amenities"
+      produces: 
+        - "application/json"
+      parameters:
+        -
+          name: "alphaSort"
+          description: "sort amenities alphabetically?"
+          type: "boolean"
+          default: "true"
+          required: false
+          in: "query"
+      responses: 
+        "200":
+          description: "returns an array of amenities"
+          schema: 
+            type: "array"
+            items:
+              $ref: "#/definitions/Amenity"
+              
+#################################
+## Community care type categories
+#################################
+
+  /communityCategory: 
+    get:
+      tags:
+        - CommunityCategories
+      description: "Get all community care type categories"
+      produces: 
+        - "application/json"
+      responses: 
+        "200":
+          description: "returns an array of community care type categories"
+          schema: 
+            type: "array"
+            items:
+              $ref: "#/definitions/CommunityCategory"
+              
+              
+#################################
+## Guest User Functionality
+#################################
+
+  /guest/auth/whoami: 
+    get:
+      tags:
+        - GuestAuth
+      description: "Get whoami for Guest User"
+      produces: 
+        - "application/json"
+      parameters:
+        -
+          name: "apiKey"
+          description: "apiKey"
+          type: "string"
+          default: "ppl4jUcUU9sfjjj1k195hzlzq"
+          required: true
+          in: "query"
+      responses: 
+        "200":
+          description: "returns GuestUser object or null"
+          schema: 
+            type: "object"
+            properties:
+              whoami:
+                $ref: "#/definitions/GuestUser"
+              
+  /guest/auth/exists/{email}: 
+    get:
+      tags:
+        - GuestAuth
+      description: "Check to see if this email exists"
+      produces: 
+        - "application/json"
+      parameters:
+        -
+          name: "apiKey"
+          description: "apiKey"
+          type: "string"
+          default: "ppl4jUcUU9sfjjj1k195hzlzq"
+          required: true
+          in: "query"
+        -
+          name: "email"
+          description: "email to check for existence"
+          type: "string"
+          default: "me@me.com"
+          required: true
+          in: "path"
+      responses: 
+        "200":
+          description: "returns GuestUser object"
+          schema: 
+            type: "object"
+            properties:
+              exists:
+                type: "boolean"
+  
+  
+  /guest/auth/register/{email}: 
+    get:
+      tags:
+        - GuestAuth
+      description: "Register guest user by email"
+      produces: 
+        - "application/json"
+      parameters:
+        -
+          name: "apiKey"
+          description: "apiKey"
+          type: "string"
+          default: "ppl4jUcUU9sfjjj1k195hzlzq"
+          required: true
+          in: "query"
+        -
+          name: "login"
+          description: "log the user in after registering? (default true)"
+          type: "boolean"
+          default: true
+          required: false
+          in: "query"
+        -
+          name: "email"
+          description: "email to register"
+          type: "string"
+          default: "me@me.com"
+          required: true
+          in: "path"
+      responses: 
+        "200":
+          description: "returns GuestUser object if logged in, errors if registration failure"
+          schema: 
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+              whoami:
+                $ref: "#/definitions/GuestUser"
+              errors:
+                type: "array"
+                
+  /guest/auth/registerLogin/{email}: 
+    get:
+      tags:
+        - GuestAuth
+      description: "Register email if doesn't exist, then log in guest user"
+      produces: 
+        - "application/json"
+      parameters:
+        -
+          name: "apiKey"
+          description: "apiKey"
+          type: "string"
+          default: "ppl4jUcUU9sfjjj1k195hzlzq"
+          required: true
+          in: "query"
+        -
+          name: "email"
+          description: "email to register and/or login"
+          type: "string"
+          default: "me@me.com"
+          required: true
+          in: "path"
+      responses: 
+        "200":
+          description: "returns GuestUser object if logged in, errors if failure"
+          schema: 
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+              whoami:
+                $ref: "#/definitions/GuestUser"
+              errors:
+                type: "array"
+  
+  /guest/auth/login/{email}: 
+    get:
+      tags:
+        - GuestAuth
+      description: "Login as guest user (only requires email, no password)"
+      produces: 
+        - "application/json"
+      parameters:
+        -
+          name: "apiKey"
+          description: "apiKey"
+          type: "string"
+          default: "ppl4jUcUU9sfjjj1k195hzlzq"
+          required: true
+          in: "query"
+        -
+          name: "email"
+          description: "email to identify as"
+          type: "string"
+          default: "me@me.com"
+          required: true
+          in: "path"
+      responses: 
+        "200":
+          description: "returns GuestUser object if logged in, errors if identification failure"
+          schema: 
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+              errors:
+                type: "array"
+              whoami:
+                $ref: "#/definitions/GuestUser"
+
+  /guest/auth/logout: 
+    get:
+      tags:
+        - GuestAuth
+      description: "Logout as guest user (whoever currently identified as)"
+      produces: 
+        - "application/json"
+      parameters:
+        -
+          name: "apiKey"
+          description: "apiKey"
+          type: "string"
+          default: "ppl4jUcUU9sfjjj1k195hzlzq"
+          required: true
+          in: "query"
+      responses: 
+        "200":
+          description: "returns GuestUser object if logged in, errors if identification failure"
+          schema: 
+            type: "object"
+            properties:
+              whoami:
+                $ref: "#/definitions/GuestUser"
+              errors:
+                type: "array"
+              
+#################################
+## Favorites Functionality
+#################################
+
+  /guest/favorites: 
+    post:
+      tags:
+        - Favorites
+      description: "Add favorite_communities to Guest User"
+      produces: 
+        - "application/json"
+      parameters:
+        -
+          name: "apiKey"
+          description: "apiKey"
+          type: "string"
+          default: "ppl4jUcUU9sfjjj1k195hzlzq"
+          required: true
+          in: "query"
+        -
+          name: "favorite_communities"
+          description: "Community IDs (comma-separated list)"
+          type: "string"
+          required: false
+          in: "formData"  
+      responses: 
+        "200":
+          description: "returns GuestUser object or null"
+          schema: 
+            type: "object"
+            properties:
+              whoami:
+                $ref: "#/definitions/GuestUser"
+    put:
+      tags:
+        - Favorites
+      description: "Set favorite_communities for Guest User"
+      produces: 
+        - "application/json"
+      parameters:
+        -
+          name: "apiKey"
+          description: "apiKey"
+          type: "string"
+          default: "ppl4jUcUU9sfjjj1k195hzlzq"
+          required: true
+          in: "query"
+        -
+          name: "favorite_communities"
+          description: "Community IDs (comma-separated list)"
+          type: "string"
+          required: true
+          in: "formData"  
+      responses: 
+        "200":
+          description: "returns GuestUser object or null"
+          schema: 
+            type: "object"
+            properties:
+              whoami:
+                $ref: "#/definitions/GuestUser"
+                
+    delete:
+      tags:
+        - Favorites
+      description: "Remove favorite_communities from Guest User"
+      produces: 
+        - "application/json"
+      parameters:
+        -
+          name: "apiKey"
+          description: "apiKey"
+          type: "string"
+          default: "ppl4jUcUU9sfjjj1k195hzlzq"
+          required: true
+          in: "query"
+        -
+          name: "favorite_communities"
+          description: "Community IDs (comma-separated list)"
+          type: "string"
+          required: true
+          in: "formData"  
+      responses: 
+        "200":
+          description: "returns GuestUser object or null"
+          schema: 
+            type: "object"
+            properties:
+              whoami:
+                $ref: "#/definitions/GuestUser"
+                
+#################################
+## Testing
+#################################
+
+  /session: 
+    get:
+      tags:
+        - Testing
+      description: "current session"
+      produces: 
+        - "application/json"
+      parameters:
+        -
+          name: "apiKey"
+          description: "apiKey"
+          type: "string"
+          default: "ppl4jUcUU9sfjjj1k195hzlzq"
+          required: true
+          in: "query"
+      responses: 
+        "200":
+          description: "returns current session"
+  
+  /cookies: 
+    get:
+      tags:
+        - Testing
+      description: "Return all cookies"
+      produces: 
+        - "application/json"
+      parameters:
+        -
+          name: "apiKey"
+          description: "apiKey"
+          type: "string"
+          default: "ppl4jUcUU9sfjjj1k195hzlzq"
+          required: true
+          in: "query"
+      responses: 
+        "200":
+          description: "returns all cookies"
+          
+  
+
+#################################
+## $ref erences
+#################################
+
+parameters:
+  Recaptcha: 
+    name: g-recaptcha-response
+    in: formData
+    description: "Valid recaptcha response token <button onclick='window.getRecaptcha(event)'>Get</button>"
+    required: true
+    type: string
+    
+definitions: 
+  Community: 
+    type: "object"
+    properties: 
+      id: 
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+      address1:
+        type: "string"
+      address2:
+        type: "string"
+      city:
+        type: "string"
+      state:
+        type: "string"
+      zip:
+        type: "string"
+      lat:
+        type: "string"
+      lng:
+        type: "string"
+      phone:
+        type: "string"
+      phone_ext:
+        type: "string"
+      fax:
+        type: "string"
+      fax_ext:
+        type: "string"
+      s3_image_url:
+        type: "string"
+      website:
+        type: "string"
+      email:
+        type: "string"
+      isEnhanced:
+        type: "boolean"
+      facility_manager:
+        type: "string"
+      enhanced_intro_text:
+        type: "string"
+      
+      
+  GuestUser:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+      favorite_communities:
+        type: "array"
+        items:
+          type: "string"
+  
+  CommunityCategory:
+    type: "object"
+    properties:
+      id: 
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+      
+  Region:
+    type: "object"
+    properties:
+      id: 
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+      
+  Amenity:
+    type: "object"
+    properties:
+      id: 
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+      

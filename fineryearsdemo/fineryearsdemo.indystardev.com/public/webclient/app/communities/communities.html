@@ -1,0 +1,525 @@
+<!-- begin .main-container -->
+<div class="main-container" id="communities-container">
+  <div class="page-content-container communities-content-container">
+    <div class="grid-row page-top-container">
+      <div class="grid-col-sm-2 grid-col-xs-12">
+        <p><a href="javascript:history.back()" target="_self" class="back-button"><i class="icon icon-left-circled"></i>Back</a></p>
+      </div><!-- end .grid-col -->
+      <div class="grid-col-sm-8 grid-col-xs-12">
+        <h1 class="page-title"><span ng-bind="dynamicTitle"></span></h1>
+      </div><!-- end .grid-col -->
+      <div class="grid-col-sm-2 grid-col-xs-12">
+      </div><!-- end .grid-col -->
+    </div><!-- end .grid-row -->
+    
+    <div class="grid-row communities-filter-banner-container">
+      <div class="grid-col-xs-12">
+        <div class="accordion-container">
+          <div class="panel-container">
+            <div class="panel-header-container"
+                  ng-click="toggleAccordion()"
+            >
+              <span class="panel-title">FILTER</span>
+              <span class="accordion-panel-toggle-button">
+                <i class="icon"
+                   ng-class="{
+                     'icon-down-dir' : !accordionOpen,
+                     'icon-up-dir' : accordionOpen
+                   }"
+                ></i>
+              </span>
+            </div><!-- end .panel-header-container -->
+  
+            <div class="panel-body-container"
+                  ng-show="accordionOpen"
+            >
+              <div class="grid-row communities-search-banner">
+                <div class="grid-col-md-12 grid-col-sm-12 no-padding">
+
+                  <div class="grid-row">
+                    <div class="grid-col-lg-6 grid-col-sm-6">
+                      <div class="form-field">
+                        <label class="field-heading">City or Zip Code:</label>
+
+                        <!-- begin predictive text drop-down -->
+                        <span class="scrollable-dropdown-container">
+                          <input type="text"
+                            id="city-or-zip-dropdown"
+                            ng-model="FilterService.settings.communities.cityOrZip"       
+                            uib-typeahead="cityOrZip for cityOrZip in citiesAndZips | filter:$viewValue" 
+                            typeahead-editable="false"
+                            typeahead-is-open="cityOrZipIsOpen"
+                            class="input-textbox form-control" 
+                            typeahead-min-length="0"
+                            typeahead-select-on-exact="true"
+                            typeahead-select-on-blur="false"
+                            typeahead-focus-first="false"
+                            typeahead-on-select="selectCityOrZip()"
+                            my-enter="selectCityOrZip()"
+                            ng-focus="initCityOrZipDropDown()"
+                            ng-blur="emptyCityOrZipIfNotValid()"
+                          />
+                        </span>
+                        <div class="fail-message"
+                             ng-if="FilterService.settings.communities.cityOrZip === undefined
+                                    && !cityOrZipIsOpen
+                             "
+                        >
+                          No matches found
+                        </div>
+                        <!-- end predictive text drop-down -->
+                      </div><!-- end .form-field -->
+                      
+                      <div class="grid-row divider-container">
+                        <div class="grid-col-xs-5 no-padding">
+                          <hr>
+                        </div>
+                        <div class="grid-col-xs-2 center no-padding">
+                          OR
+                        </div>
+                        <div class="grid-col-xs-5 no-padding">
+                          <hr>
+                        </div>
+                      </div><!-- end .divider-container -->
+                      
+                      <div class="form-field">
+                        <label class="field-heading">Regions:</label>
+                        <label class="input-checkbox"
+                               ng-class="{
+                                'disabled-checkbox' : regionsDisabled
+                               }"
+                        >
+                          <input type="checkbox" 
+                                  name="region" 
+                                  ng-model="FilterService.settings.communities.regions['all']"
+                                  ng-disabled="regionsDisabled"
+                          /> 
+                          All Regions
+                        </label>
+                        <!-- show these if "all regions" is NOT checked -->
+                        <span ng-if="!FilterService.settings.communities.regions['all']">
+                          <label class="input-checkbox"
+                                 ng-class="{
+                                  'disabled-checkbox' : regionsDisabled
+                                 }"
+                          >
+                            <input type="checkbox" 
+                                    name="region" 
+                                    ng-model="FilterService.settings.communities.regions[1]"
+                                    ng-disabled="regionsDisabled"
+                            />
+                            North
+                          </label>
+                          <label class="input-checkbox"
+                                 ng-class="{
+                                  'disabled-checkbox' : regionsDisabled
+                                 }"
+                          >
+                            <input type="checkbox" 
+                                    name="region" 
+                                    ng-model="FilterService.settings.communities.regions[2]"
+                                    ng-disabled="regionsDisabled"
+                            />
+                            South
+                          </label>
+                          <label class="input-checkbox"
+                                 ng-class="{
+                                  'disabled-checkbox' : regionsDisabled
+                                 }"
+                          >
+                            <input type="checkbox" 
+                                    name="region" 
+                                    ng-model="FilterService.settings.communities.regions[3]"
+                                    ng-disabled="regionsDisabled"
+                            />
+                            East
+                          </label>
+                          <label class="input-checkbox"
+                                 ng-class="{
+                                  'disabled-checkbox' : regionsDisabled
+                                 }"
+                          >
+                            <input type="checkbox" 
+                                    name="region" 
+                                    ng-model="FilterService.settings.communities.regions[4]"
+                                    ng-disabled="regionsDisabled"
+                            />
+                            West
+                          </label>
+                          <label class="input-checkbox"
+                                 ng-class="{
+                                  'disabled-checkbox' : regionsDisabled
+                                 }"
+                          >
+                            <input type="checkbox" 
+                                    name="region" 
+                                    ng-model="FilterService.settings.communities.regions[5]"
+                                    ng-disabled="regionsDisabled"
+                            />
+                            Inner I-465
+                          </label>
+                        </span>
+                        <!-- show these when "all regions" is selected -->
+                        <span ng-if="FilterService.settings.communities.regions['all']">
+                          <label class="input-checkbox"
+                                  ng-class="{
+                                    'disabled-checkbox' : regionsDisabled
+                                  }"
+                          >
+                            <input type="checkbox" 
+                                    name="region" 
+                                    disabled
+                                    checked
+                            />
+                            North
+                          </label>
+                          <label class="input-checkbox"
+                                  ng-class="{
+                                    'disabled-checkbox' : regionsDisabled
+                                  }"
+                          >
+                            <input type="checkbox" 
+                                    name="region" 
+                                    disabled
+                                    checked
+                            />
+                            South
+                          </label>
+                          <label class="input-checkbox"
+                                  ng-class="{
+                                    'disabled-checkbox' : regionsDisabled
+                                  }"
+                          >
+                            <input type="checkbox" 
+                                    name="region" 
+                                    disabled
+                                    checked
+                            />
+                            East
+                          </label>
+                          <label class="input-checkbox"
+                                  ng-class="{
+                                    'disabled-checkbox' : regionsDisabled
+                                  }"
+                          >
+                            <input type="checkbox" 
+                                    name="region" 
+                                    disabled
+                                    checked
+                            />
+                            West
+                          </label>
+                          <label class="input-checkbox"
+                                  ng-class="{
+                                    'disabled-checkbox' : regionsDisabled
+                                  }"
+                          >
+                            <input type="checkbox" 
+                                    name="region" 
+                                    disabled
+                                    checked
+                            />
+                            Inner I-465
+                          </label>
+                        </span>  
+                      </div><!-- end .form-field -->
+                    </div><!-- end .grid-col -->
+                    <div class="grid-col-lg-6 grid-col-sm-6">
+                      <div class="form-field">
+                        <label class="field-heading">Living & Care Types:<a href="../#/care" target="_self" title="Click for more info"><i class="icon icon-info-circled"></i><span class="tiny-text" style="vertical-align:middle;">more info</span></a></label>
+                        
+                        <label class="input-checkbox">
+                          <input type="checkbox" 
+                                  name="care" 
+                                  value="all" 
+                                  ng-model="FilterService.settings.communities.category_memberships['all']"
+                          /> All Types
+                        </label>
+                        
+                        <!-- show these if all care types is NOT checked -->
+                        <span ng-if="!FilterService.settings.communities.category_memberships['all']">
+                          <label class="input-checkbox">
+                            <input type="checkbox" 
+                                    name="care" 
+                                    value="all" 
+                                    ng-model="FilterService.settings.communities.category_memberships[1]"
+                            /> Limited Maintenance / Maintenance Free
+                          </label>
+                          <label class="input-checkbox">
+                            <input type="checkbox" 
+                                    name="care" 
+                                    value="all" 
+                                    ng-model="FilterService.settings.communities.category_memberships[2]"
+                            /> Independent Living
+                          </label>
+                          <label class="input-checkbox">
+                            <input type="checkbox" 
+                                    name="care" 
+                                    value="all" 
+                                    ng-model="FilterService.settings.communities.category_memberships[3]"
+                            /> Continuing Care Retirement Communities
+                          </label>
+                          <label class="input-checkbox">
+                            <input type="checkbox" 
+                                    name="care" 
+                                    value="all" 
+                                    ng-model="FilterService.settings.communities.category_memberships[4]"
+                            /> Assisted Living
+                          </label>
+                          <label class="input-checkbox">
+                            <input type="checkbox" 
+                                    name="care" 
+                                    value="all" 
+                                    ng-model="FilterService.settings.communities.category_memberships[5]"
+                            /> Home Care
+                          </label>
+                          <label class="input-checkbox">
+                            <input type="checkbox" 
+                                    name="care" 
+                                    value="all" 
+                                    ng-model="FilterService.settings.communities.category_memberships[6]"
+                            /> On-Site Home Care
+                          </label>
+                          <label class="input-checkbox">
+                            <input type="checkbox" 
+                                    name="care" 
+                                    value="all" 
+                                    ng-model="FilterService.settings.communities.category_memberships[7]"
+                            /> Respite Care
+                          </label>
+                          <label class="input-checkbox">
+                            <input type="checkbox" 
+                                    name="care" 
+                                    value="all" 
+                                    ng-model="FilterService.settings.communities.category_memberships[8]"
+                            /> Memory Care
+                          </label>
+                          <label class="input-checkbox">
+                            <input type="checkbox" 
+                                    name="care" 
+                                    value="all" 
+                                    ng-model="FilterService.settings.communities.category_memberships[9]"
+                            /> Rehabilitation Care
+                          </label>
+                          <label class="input-checkbox">
+                            <input type="checkbox" 
+                                    name="care" 
+                                    value="all" 
+                                    ng-model="FilterService.settings.communities.category_memberships[10]"
+                            /> Nursing / Specialty Care
+                          </label>
+                        </span>
+                        
+                        <!-- show these if all care types is checked -->
+                        <span ng-if="FilterService.settings.communities.category_memberships['all']">
+                          <label class="input-checkbox">
+                            <input type="checkbox" 
+                                    name="care" 
+                                    value="all" 
+                                    disabled
+                                    checked
+                            /> Limited Maintenance / Maintenance Free
+                          </label>
+                          <label class="input-checkbox">
+                            <input type="checkbox" 
+                                    name="care" 
+                                    value="all" 
+                                    disabled
+                                    checked
+                            /> Independent Living
+                          </label>
+                          <label class="input-checkbox">
+                            <input type="checkbox" 
+                                    name="care" 
+                                    value="all"
+                                    disabled
+                                    checked
+                            /> Continuing Care Retirement Communities
+                          </label>
+                          <label class="input-checkbox">
+                            <input type="checkbox" 
+                                    name="care" 
+                                    value="all"
+                                    disabled
+                                    checked
+                            /> Assisted Living
+                          </label>
+                          <label class="input-checkbox">
+                            <input type="checkbox" 
+                                    name="care" 
+                                    value="all"
+                                    disabled
+                                    checked
+                            /> Home Care
+                          </label>
+                          <label class="input-checkbox">
+                            <input type="checkbox" 
+                                    name="care" 
+                                    value="all"
+                                    disabled
+                                    checked
+                            /> On-Site Home Care
+                          </label>
+                          <label class="input-checkbox">
+                            <input type="checkbox" 
+                                    name="care" 
+                                    value="all"
+                                    disabled
+                                    checked
+                            /> Respite Care
+                          </label>
+                          <label class="input-checkbox">
+                            <input type="checkbox" 
+                                    name="care" 
+                                    value="all"
+                                    disabled
+                                    checked
+                            /> Memory Care
+                          </label>
+                          <label class="input-checkbox">
+                            <input type="checkbox" 
+                                    name="care" 
+                                    value="all"
+                                    disabled
+                                    checked
+                            /> Rehabilitation Care
+                          </label>
+                          <label class="input-checkbox">
+                            <input type="checkbox" 
+                                    name="care" 
+                                    value="all"
+                                    disabled
+                                    checked
+                            /> Nursing / Specialty Care
+                          </label>
+                        </span>
+                        
+                      </div><!-- end .form-field -->
+                    </div><!-- end .grid-col -->
+                  </div><!-- end .grid-row -->
+                  
+                  <div class="grid-row no-padding">
+                    <div class="grid-col-xs-12">
+                      <p class="button-container no-padding">
+                        <button type="button" 
+                                class="button button-yellow"
+                                ng-click="filterUpdate()"
+                        >
+                          <i class="icon icon-arrows-cw"></i> UPDATE
+                        </button>
+                      </p>
+                    </div><!-- end .grid-col -->
+                  </div><!-- end .grid-row -->
+                </div><!-- end .grid-col -->
+                <!--
+                <div class="grid-col-md-0 grid-col-sm-12 no-padding center ad-container">
+                  <img src="common/img/300x250.jpg" class="ad-300" alt="ad">
+                </div>
+                -->
+                <!-- end .ad-container -->
+              </div><!-- end .communities-search-banner -->
+            </div><!-- end .panel-body-container -->
+          </div><!-- end .panel-container -->
+        </div><!-- end .accordion-container -->
+      </div><!-- end .grid-col -->
+    </div><!-- end .communities-filter-banner-container -->
+    
+    <!--
+    <div class="grid-row no-padding ad-container">
+      <div class="grid-col-xs-12 center accordion-closed-ad-container" 
+            ng-show="!accordionOpen"
+      >
+        <img src="common/img/300x250.jpg" class="ad-300" alt="ad">
+      </div>
+    </div>
+    -->
+    <!-- end .ad-container -->
+    
+    <div class="grid-row listing-count-container-top">
+      <div class="grid-col-md-4 buttons-container">
+          <a href="../#/care" target="_self" class="button button-teal noselect"><i class="icon icon-heart"></i> LIVING AND CARE TYPES</a>
+          <a  class="button button-teal noselect"
+              href="../#/map" 
+              target="_self" 
+              ng-if="filteredCommunities.length > 0"
+          ><i class="icon icon-location"></i> MAP VIEW</a>
+      </div><!-- end .buttons-container -->
+      <div class="grid-col-md-8 count-container">
+        
+        <!-- results summary -->
+        <span ng-if="filteredCommunities.length"><span ng-bind="filteredCommunities.length"></span> listings found for 
+          <span ng-repeat="careType in clickables.careTypes track by $index"><div
+                class="text-link"
+                ng-click="setFilterToSingleCareType(careType)"
+                ng-bind="careType.careTypeName"
+          ></div><span ng-if="!$last">, </span></span>
+          near 
+          <span ng-repeat="region in clickables.regions track by $index"
+                ng-if="clickables.cityOrZip === null"
+          >
+          <div class="text-link"
+              ng-click="setFilterToSingleRegion(region)"
+              ng-bind="region.regionName"
+          ></div><span ng-if="!$last">, </span></span>
+          <span ng-if="clickables.cityOrZip !== null">
+          <div class="text-link"
+                ng-click="setFilterCityOrZip(clickables.cityOrZip);"
+                ng-bind="clickables.cityOrZip"
+          ></div></span>
+          
+        </span> 
+        <!-- end results summary -->
+        
+      </div><!-- end .count-container -->
+    </div><!-- end .listing-count-container-top -->
+  
+    <div class="grid-row results-table-container">
+      <div class="grid-col-xs-12">
+        <table class="results-table"
+               ng-if="filteredCommunities.length > 0"
+        >
+          <thead>
+            <tr>
+              <th style="font-size:1em;">Community</th>
+              <th class="desktop-col"><div>Maint.<br>Free</div></th>
+              <th class="desktop-col"><div>Indep.<br>Living</div></th>
+              <th class="desktop-col"><div>Contin.<br>Care</div></th>
+              <th class="desktop-col"><div>Assisted<br>Living</div></th>
+              <th class="desktop-col"><div>Home<br>Care</div></th>
+              <th class="desktop-col"><div>On-Site<br>Home Care</div></th>
+              <th class="desktop-col"><div>Resp.<br>Care</div></th>
+              <th class="desktop-col"><div>Mem.<br>Care</div></th>
+              <th class="desktop-col"><div>Rehab<br>Care</div></th>
+              <th class="desktop-col"><div>Nurs.<br>Care</div></th>
+              <th class="desktop-col"><div>Map<br>Region(s)</div></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr table-list-community
+                community="community"
+                ng-repeat-finished="communities-ng-repeat-finished"
+                ng-repeat="community in filteredCommunities track by community.id"
+                ng-class="{
+                  'alt-color' : $even
+                }"
+            >
+            </tr>
+          </tbody>
+        </table><!-- end .results-table -->
+      </div><!-- end .grid-col -->
+    </div><!-- end .results-table-container -->
+    
+    <!-- ad container -->
+    <!--
+    <div class="grid-row ad-container-desktop">
+      <div class="grid-col-xs-12">
+        <img src="common/img/728x90.jpg" class="ad-728" alt="ad">
+        <img src="common/img/300x250.jpg" class="ad-300" alt="ad">
+      </div>
+    </div>
+    -->
+    <!-- end .ad-container-desktop -->
+  </div><!-- end .page-content-container -->
+</div>
+<!-- end .main-container -->
+

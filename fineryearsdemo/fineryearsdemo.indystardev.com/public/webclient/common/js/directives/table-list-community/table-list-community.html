@@ -1,0 +1,167 @@
+<td>
+  <div class="grid-row listing-container"
+       ng-class="::{
+         'basic' : !community.isEnhanced
+       }"
+  >
+    
+    <div class="grid-col-md-4 grid-col-xs-12 photo-container">
+      <div class="photo-info">
+        <a class="link" ng-href="{{::'../#/community/' + community.id + '/' + urlFriendlyCommunityName}}">
+        <img  class="photo"
+              ng-if="::community.s3_image_thumbnail_url"
+              ng-src="{{::community.s3_image_thumbnail_url}}" 
+              alt="thumbnail"
+        >
+        <img  class="photo"
+              ng-if="::(!community.s3_image_thumbnail_url && community.s3_image_url)"
+              ng-src="{{::community.s3_image_url}}" 
+              alt="thumbnail"
+        >
+        <img  class="photo"
+              ng-if="::(!community.s3_image_thumbnail_url && !community.s3_image_url)"
+              src="common/img/no-image.jpg" 
+              alt="thumbnail"
+        >
+        </a>
+        <a class="button button-teal button-view-profile" 
+            ng-if="::community.isEnhanced"
+            ng-href="{{::'../#/community/' + community.id + '/' + urlFriendlyCommunityName}}"
+        >View Profile</a>
+      </div>
+    </div><!-- end .photo-container -->
+    <div class="grid-col-md-8 grid-col-xs-12 info-container">
+      <div class="featured-label-container" ng-if="::community.isEnhanced">
+        <span class="featured-label">FEATURED</span>
+      </div>
+      
+      <div class="contact-info">
+        <a class="favorite-button"
+            ng-class="{
+              'favorited' : community.isFavorited
+            }"
+            ng-click="toggleFavorited()"
+    ><i class="icon icon-star"></i></a>
+        <span class="community-name"><a 
+              class="link community-link"
+              ng-href="{{::'../#/community/' + community.id + '/' + urlFriendlyCommunityName}}"
+              ><span ng-bind="community.filterRanking"></span>. <span ng-bind="::community.name"></span></a></span>
+        <br ng-if="::community.address1"><span
+              ng-if="::community.address1"
+              ng-bind="::community.address1"
+        ></span>
+        <br ng-if="::community.address2"><span
+              ng-if="::community.address2"
+              ng-bind="::community.address2"
+        ></span>
+        
+        <br ng-if="::community.city"><span
+              ng-if="::community.city"
+              ng-bind="::community.city"
+        ></span><span ng-if="::(community.city && community.state)">,</span>
+        <span ng-if="::community.state"
+              ng-bind="::community.state"
+        ></span>
+        <span ng-if="::community.zip"
+              ng-bind="::community.zip"
+        ></span>
+        <br ng-if="::community.phone"><span
+              ng-if="::community.phone"
+              ng-bind="::community.phone | telephone"
+        ></span>
+        <br ng-if="::community.email"><span>
+          <a ng-if="::community.email" 
+              ng-href="{{::'mailto:' + community.email}}" 
+              ng-bind="::community.email" 
+              target="_top" 
+              class="link email-link"
+              ng-click="recordEmailClick()"
+          ></a>
+          </span>
+        <br ng-if="::community.website"><span style="word-wrap:break-all;"><a ng-if="::community.website" ng-href="{{::'http://' + community.website}}" ng-bind="::community.website" class="link website-link"></a></span>
+      </div><!-- end .contact-info -->
+      
+      <div class="care-info" ng-if="::community.category_memberships.length > 0">
+        <span class="bold">Living and Care: </span>
+        <ul>
+          <li ng-repeat="category_membership in ::community.category_memberships"
+              ng-bind="::category_membership.category.name"
+          ></li>
+        </ul>
+        <span class="bold noselect">Map Region(s): </span><a ng-href="{{::'../#/map?id=' + community.id}}">
+          <span ng-repeat="region in ::community.regions"><span ng-bind="::region.name"></span><span ng-if="::!$last">, </span></span>
+        </a>
+        </div>
+      </div><!-- end .care-info -->
+    </div><!-- end .info-container -->
+    
+  </div><!-- end .listing-container -->
+</td>
+<td class="desktop-col">
+  <i class="icon icon-ok-2 check"
+      ng-if="::(categoriesById[1] !== undefined && categoriesById[1] !== false)"
+  ></i>
+</td>
+<td class="desktop-col">
+  <i class="icon icon-ok-2 check"
+      ng-if="::(categoriesById[2] !== undefined && categoriesById[2] !== false)"
+  ></i>
+</td>
+<td class="desktop-col">
+  <i class="icon icon-ok-2 check"
+      ng-if="::(categoriesById[3] !== undefined && categoriesById[3] !== false)"
+  ></i>
+</td>
+<td class="desktop-col">
+  <i class="icon icon-ok-2 check"
+      ng-if="::(categoriesById[4] !== undefined && categoriesById[4] !== false)"
+  ></i>
+</td>
+<td class="desktop-col">
+  <i class="icon icon-ok-2 check"
+      ng-if="::(categoriesById[5] !== undefined && categoriesById[5] !== false)"
+  ></i>
+</td>
+<td class="desktop-col">
+  <i class="icon icon-ok-2 check"
+      ng-if="::(categoriesById[6] !== undefined && categoriesById[6] !== false)"
+  ></i>
+</td>
+<td class="desktop-col">
+  <i class="icon icon-ok-2 check"
+      ng-if="::(categoriesById[7] !== undefined && categoriesById[7] !== false)"
+  ></i>
+</td>
+<td class="desktop-col">
+  <i class="icon icon-ok-2 check"
+      ng-if="::(categoriesById[8] !== undefined && categoriesById[8] !== false)"
+  ></i>
+</td>
+<td class="desktop-col">
+  <i class="icon icon-ok-2 check"
+      ng-if="::(categoriesById[9] !== undefined && categoriesById[9] !== false)"
+  ></i>
+</td>
+<td class="desktop-col">
+  <i class="icon icon-ok-2 check"
+      ng-if="::(categoriesById[10] !== undefined && categoriesById[10] !== false)"
+  ></i>
+</td>
+<td class="desktop-col noselect">
+  <a ng-if="::$state.current.name !== 'saved'"
+      ng-href="{{::'../#/map?id=' + community.id}}"
+  >
+    <div style="min-width:80px;" class="noselect" ng-repeat="region in ::community.regions">
+      <span ng-bind="::region.name"></span><span ng-if="::!$last">,</span>
+    </div>
+  </a>
+  <div class="text-link"
+       ng-if="::$state.current.name === 'saved'"
+       ng-click="goToSavedMap(community)"
+  >
+    <div style="min-width:80px;" class="noselect" ng-repeat="region in ::community.regions">
+      <span ng-bind="::region.name"></span><span ng-if="::!$last">,</span>
+    </div>
+  </div>
+</td>
+   

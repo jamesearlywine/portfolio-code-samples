@@ -1,0 +1,15 @@
+<div  id="alert1" 
+      class="alert-container alert-yellow"
+      ng-class="{
+        'alert-fade' : visible
+      }"
+  >
+  <div class="alert-box centered">
+    <div class="alert-content-container">
+      <p class="alert-close-container"><i class="alert-cancel icon icon-cancel alert-close" ng-click="close()"></i></p>
+      <div class="alert-body-container">
+        <p ng-bind="message"></p>
+      </div><!-- end .alert-body-container -->
+    </div><!-- end .alert-content-container -->
+  </div><!-- end .alert-box -->
+</div><!-- end .alert-container -->
