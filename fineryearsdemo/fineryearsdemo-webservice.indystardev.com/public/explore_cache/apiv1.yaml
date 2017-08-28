@@ -2,12 +2,12 @@ swagger: "2.0"
 info: 
   title: "The Finer Years Webservice Cache API"
   version: "1.0.0"
-  description: "TODO"
+  description: "Webservice json fragments - updated/re-published on database update"
   contact: 
     name: "IndyStarDev"
     email: "james.earlywine@indystar.com"
 host: "fineryearsdemos3.indystardev.com"
-basePath: "/webserviceCache/"
+basePath: "/webserviceCache"
 schemes: 
   - "http"
 consumes: 
@@ -28,21 +28,14 @@ paths:
 ## Communities
 #################################
 
-  /community: 
+  /community.json: 
     get:
       tags:
         - Communities
       description: "Get all communities"
       produces: 
         - "application/json"
-      parameters:
-        -
-          name: "dummyParam"
-          description: "- replace with path parameter to single community possible -"
-          type: "string"
-          default: ""
-          required: true
-          in: "path"
+
       responses: 
         "200":
           description: "returns an array of communities"
@@ -58,7 +51,7 @@ paths:
 ## Regions
 #################################
 
-  /region: 
+  /region.json: 
     get:
       tags:
         - Regions
@@ -77,7 +70,7 @@ paths:
 ## Amenities
 #################################
 
-  /amenity: 
+  /amenity.json: 
     get:
       tags:
         - Amenities
@@ -91,26 +84,6 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/Amenity"
-              
-#################################
-## Community care type categories
-#################################
-
-  /communityCategory: 
-    get:
-      tags:
-        - CommunityCategories
-      description: "Get all community care type categories"
-      produces: 
-        - "application/json"
-      responses: 
-        "200":
-          description: "returns an array of community care type categories"
-          schema: 
-            type: "array"
-            items:
-              $ref: "#/definitions/CommunityCategory"
-              
               
 
   
