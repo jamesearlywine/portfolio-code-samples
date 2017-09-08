@@ -83,6 +83,20 @@ Route::group([ 'prefix' => 'guest', 'middleware' => ['cors'] ], function() {
   
 });
 
+/**
+ * Demo-Related
+ */
+Route::group([ 'prefix' => 'demo', 'middleware' => ['cors', 'auth'] ], function() {
+  
+  Route::group(['prefix' => 'reset'], function() {
+    Route::get('database',              [
+      'as' => 'demoResetDatabase',
+      'uses' => 'DemoController@postResetDatabase'
+    ]);
+  });
+  
+});
+
 
 /**
  * Action Tracking

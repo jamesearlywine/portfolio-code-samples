@@ -25,8 +25,7 @@ return [
                 'us',
                 true,
                 env('GOOGLE_MAPS_API_KEY'),
-            ],
-            FreeGeoIp::class  => [],
+            ]
         ],
         /*
         BingMaps::class => [

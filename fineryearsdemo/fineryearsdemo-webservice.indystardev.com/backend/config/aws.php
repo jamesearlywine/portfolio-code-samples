@@ -22,7 +22,7 @@ return [
         'secret' => env('AWS_SECRET', null),
     ],
 
-    'region' => env('AWS_REGION', 'us-east-1'),
+    'region' => env('AWS_REGION', 'us-west-2'),
     'version' => 'latest',
     'ua_append' => [
         'L5MOD/' . AwsServiceProvider::VERSION,

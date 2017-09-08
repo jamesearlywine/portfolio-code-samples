@@ -54,9 +54,9 @@
 
     // The menu that is displayed to the right of the main menu.
     'service_menu' => [
+        ['label' => 'ResetDemoDatabase', 'route' => 'demoResetDatabase'],
         ['label' => 'informationRequests.csv', 'route' => 'informationRequests.csv'],
         ['label' => 'Logout', 'route' => 'cmslogout' ],
-        
     ],
 
     // The list of key value pairs where key is the entity id and value is

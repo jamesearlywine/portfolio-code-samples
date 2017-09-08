@@ -593,7 +593,70 @@ paths:
             properties:
               whoami:
                 $ref: "#/definitions/GuestUser"
-                
+
+#################################
+## Auth
+#################################
+
+  /login: 
+    post:
+      tags:
+        - Auth
+      description: "Login as admin user"
+      parameters:
+        -
+          name: "email"
+          description: "email"
+          type: "string"
+          required: true
+          in: "formData"  
+        -
+          name: "password"
+          description: "password"
+          type: "string"
+          required: true
+          in: "formData"  
+      produces: 
+        - "application/json"
+      responses: 
+        "302":
+          description: "redirects to admin cms upon success"
+
+  /logout: 
+    get:
+      tags:
+        - Auth
+      description: "Logout as admin user"
+      produces: 
+        - "application/json"
+      responses: 
+        "401":
+          description: "always returns 401 Unauthorized"
+
+
+#################################
+## Demo-Related
+#################################
+
+  /demo/reset/database: 
+    get:
+      tags:
+        - Demo
+      description: "Reset the database to initial demo-state (requires non-guest auth)"
+      produces: 
+        - "application/json"
+      responses: 
+        "200":
+          description: "returns redirect to admincms on success, otherwise an array of errors"
+          schema: 
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+              errors:
+                type: "array"
+
+
 #################################
 ## Testing
 #################################
@@ -635,8 +698,7 @@ paths:
       responses: 
         "200":
           description: "returns all cookies"
-          
-  
+
 
 #################################
 ## $ref erences
